@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Itaoca – Imóveis Caixa</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root {
+      --verde: #1B3A3C;
+      --verde-hover: #142e30;
+      --verde-light: #e8f0f0;
+      --ouro: #A6823D;
+      --ouro-hover: #8e6e2f;
+      --ouro-light: #f5efe0;
+      --bg: #f5f5f0;
+      --surface: #ffffff;
+      --surface-2: #f9f9f6;
+      --border: rgba(27,58,60,0.12);
+      --text: #1a1a18;
+      --text-muted: #5a5955;
+      --text-faint: #9a9993;
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow-sm: 0 1px 3px rgba(27,58,60,0.08);
+      --shadow-md: 0 4px 12px rgba(27,58,60,0.10);
+      --shadow-lg: 0 8px 24px rgba(27,58,60,0.14);
+      --font: 'Montserrat', sans-serif;
+      --transition: 180ms cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    body { font-family: var(--font); font-size: 14px; color: var(--text); background: var(--bg); min-height: 100dvh; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: var(--font); border: none; background: none; }
+    input, select { font-family: var(--font); }
+    table { border-collapse: collapse; width: 100%; }
+
+    /* HEADER */
+    .header-itaoca {
+      background: var(--verde);
+      display: flex; align-items: center; gap: 20px;
+      padding: 16px 32px;
+    }
+    .logo-itaoca { height: 48px; width: auto; }
+    .header-text h1 { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.02em; }
+    .header-text p {
+      font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.6);
+      letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px;
+    }
+    .header-gold-line { height: 3px; background: var(--ouro); }
+
+    .page-wrap { max-width: 1400px; margin: 0 auto; padding: 24px 24px 48px; }
+
+    /* IMPORT */
+    .import-card {
+      background: var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px; text-align: center; margin-bottom: 24px;
+      transition: border-color var(--transition), background var(--transition);
+      cursor: pointer; position: relative;
+    }
+    .import-card:hover, .import-card.dragover { border-color: var(--ouro); background: var(--ouro-light); }
+    .import-card input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .import-icon { color: var(--ouro); margin: 0 auto 10px; }
+    .import-card h3 { font-size: 15px; font-weight: 700; color: var(--verde); margin-bottom: 4px; }
+    .import-card p { font-size: 12px; color: var(--text-muted); }
+    .import-status {
+      display: none; align-items: center; gap: 8px; font-size: 13px;
+      font-weight: 600; color: var(--verde); justify-content: center; margin-top: 10px;
+    }
+    .import-status.visible { display: flex; }
+    .badge-count {
+      background: var(--verde); color: #fff; border-radius: 20px;
+      padding: 2px 10px; font-size: 12px; font-weight: 700;
+    }
+
+    /* FILTERS */
+    .filters-card {
+      background: var(--surface); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm); padding: 20px 24px; margin-bottom: 20px;
+    }
+    .filters-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-faint); margin-bottom: 14px;
+    }
+    .filters-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .filter-field.wide { grid-column: span 2; }
+    .filter-field { display: flex; flex-direction: column; gap: 5px; }
+    .filter-field label {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-muted);
+    }
+    .filter-field input, .filter-field select {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 8px 10px; font-size: 13px; color: var(--text); background: var(--bg);
+      transition: border-color var(--transition), box-shadow var(--transition); width: 100%;
+    }
+    .filter-field input:focus, .filter-field select:focus {
+      outline: none; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(27,58,60,0.10);
+    }
+    .filter-range { display: flex; align-items: center; gap: 6px; }
+    .filter-range input { flex: 1; min-width: 0; }
+    .filter-range span { font-size: 11px; color: var(--text-faint); flex-shrink: 0; }
+    .filters-actions {
+      display: flex; align-items: center; gap: 10px; margin-top: 16px;
+      padding-top: 14px; border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--verde); color: #fff; border-radius: var(--radius-sm);
+      padding: 9px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; transition: background var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover { background: var(--verde-hover); box-shadow: var(--shadow-sm); }
+    .btn-secondary {
+      background: transparent; color: var(--verde); border: 1.5px solid var(--verde);
+      border-radius: var(--radius-sm); padding: 8px 18px; font-size: 12px; font-weight: 700;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      transition: background var(--transition), color var(--transition);
+    }
+    .btn-secondary:hover { background: var(--verde-light); }
+    .btn-gold {
+      background: var(--ouro); color: #fff; border-radius: var(--radius-sm);
+      padding: 9px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+      text-transform: uppercase; transition: background var(--transition), box-shadow var(--transition);
+      display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+    }
+    .btn-gold:hover { background: var(--ouro-hover); }
+    .btn-gold[disabled], .btn-gold.hidden { display: none; }
+    .results-summary { font-size: 12px; color: var(--text-muted); margin-left: auto; font-weight: 500; }
+    .results-summary strong { color: var(--verde); }
+
+    /* KPIs */
+    .kpi-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+    .kpi-card {
+      background: var(--surface); border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm); padding: 14px 16px; border-left: 3px solid var(--ouro);
+    }
+    .kpi-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 6px; }
+    .kpi-value { font-size: 20px; font-weight: 800; color: var(--verde); line-height: 1; }
+    .kpi-sub { font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+
+    /* TABLE */
+    .table-card { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .table-header {
+      padding: 14px 20px; display: flex; align-items: center;
+      justify-content: space-between; border-bottom: 1px solid var(--border);
+      gap: 12px; flex-wrap: wrap;
+    }
+    .table-header-title { font-size: 13px; font-weight: 700; color: var(--verde); }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap .search-icon {
+      position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+      color: var(--text-faint); pointer-events: none;
+    }
+    .search-input {
+      border: 1px solid var(--border); border-radius: var(--radius-sm);
+      padding: 8px 10px 8px 34px; font-size: 13px; font-family: var(--font);
+      color: var(--text); background: var(--bg); width: 220px;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-input:focus { outline: none; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(27,58,60,0.10); }
+
+    .table-scroll { overflow-x: auto; }
+    .imoveis-table { min-width: 900px; }
+    .imoveis-table thead tr { background: var(--verde); }
+    .imoveis-table thead th {
+      padding: 11px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: rgba(255,255,255,0.85); text-align: left;
+      white-space: nowrap; cursor: pointer; user-select: none;
+      transition: color var(--transition);
+    }
+    .imoveis-table thead th:hover { color: #fff; }
+    .imoveis-table thead th .sort-icon { display: inline-block; margin-left: 4px; opacity: 0.5; font-size: 9px; }
+    .imoveis-table thead th.sorted .sort-icon { opacity: 1; color: var(--ouro); }
+
+    /* Clickable rows */
+    .imoveis-table tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    .imoveis-table tbody tr:last-child { border-bottom: none; }
+    .imoveis-table tbody tr:hover { background: var(--verde-light); }
+    .imoveis-table tbody tr:active { background: rgba(27,58,60,0.12); }
+    .imoveis-table td { padding: 10px 14px; font-size: 12px; color: var(--text); white-space: nowrap; }
+    .imoveis-table td.wrap { white-space: normal; max-width: 240px; min-width: 160px; line-height: 1.4; }
+
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 20px;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .badge-green { background: #d4f0e4; color: #1a6640; }
+    .badge-blue  { background: #d4e8f5; color: #1a4d6e; }
+    .badge-gray  { background: #e8e8e4; color: #555550; }
+    .badge-ouro  { background: var(--ouro-light); color: var(--ouro-hover); }
+
+    .price-cell { font-weight: 700; color: var(--verde); font-size: 13px; }
+    .discount-cell { font-weight: 700; color: #c0392b; }
+
+    /* Row click hint */
+    .row-hint-td { text-align: right; }
+    .row-hint {
+      font-size: 10px; font-weight: 600; color: var(--text-faint);
+      letter-spacing: 0.04em; text-transform: uppercase; opacity: 0;
+      transition: opacity var(--transition);
+      display: flex; align-items: center; gap: 4px; justify-content: flex-end;
+    }
+    .imoveis-table tbody tr:hover .row-hint { opacity: 1; color: var(--ouro); }
+
+    /* EMPTY STATE */
+    .empty-state { padding: 60px 20px; text-align: center; color: var(--text-faint); }
+    .empty-state-icon { margin: 0 auto 14px; color: var(--border); }
+    .empty-state h3 { font-size: 15px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; }
+    .empty-state p { font-size: 12px; max-width: 32ch; margin: 0 auto; }
+
+    /* PAGINATION */
+    .pagination {
+      display: flex; align-items: center; justify-content: flex-end;
+      gap: 6px; padding: 14px 20px; border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .pagination-info { font-size: 11px; color: var(--text-muted); margin-right: auto; }
+    .page-btn {
+      width: 32px; height: 32px; border: 1px solid var(--border);
+      border-radius: var(--radius-sm); font-size: 12px; font-weight: 600;
+      color: var(--text-muted); display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), color var(--transition), border-color var(--transition);
+    }
+    .page-btn:hover { background: var(--verde-light); border-color: var(--verde); color: var(--verde); }
+    .page-btn.active { background: var(--verde); border-color: var(--verde); color: #fff; }
+    .page-btn:disabled { opacity: 0.35; cursor: default; }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      z-index: 100; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg);
+      max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto;
+    }
+    /* Modal header — verde, with "Ver no site Caixa" button inside */
+    .modal-header {
+      background: var(--verde);
+      padding: 18px 24px 16px;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      display: flex; flex-direction: column; gap: 10px;
+      position: sticky; top: 0; z-index: 1;
+    }
+    .modal-header-top {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    }
+    .modal-header h2 { font-size: 16px; font-weight: 800; color: #fff; line-height: 1.2; }
+    .modal-header-sub { font-size: 11px; color: rgba(255,255,255,0.65); margin-top: 2px; }
+    .modal-close {
+      color: rgba(255,255,255,0.6); transition: color var(--transition); flex-shrink: 0; margin-top: 2px;
+    }
+    .modal-close:hover { color: #fff; }
+    /* "Ver no site Caixa" button in header */
+    .btn-caixa {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--ouro); color: #fff;
+      border-radius: var(--radius-sm); padding: 8px 16px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      text-decoration: none; transition: background var(--transition), box-shadow var(--transition);
+      width: fit-content;
+    }
+    .btn-caixa:hover { background: var(--ouro-hover); box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+
+    /* Checkbox garagem */
+    .filter-field--checkbox { display:flex; align-items:center; align-self:flex-end; padding-bottom:4px; }
+    .checkbox-filter-label {
+      display:flex; align-items:center; gap:9px; cursor:pointer;
+      font-size:12px; font-weight:600; color:var(--texto); letter-spacing:0.03em;
+      user-select:none;
+    }
+    .checkbox-filter-label input[type=checkbox] { display:none; }
+    .checkbox-filter-box {
+      width:18px; height:18px; border-radius:4px; border:2px solid var(--ouro);
+      background:transparent; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+      transition:background 0.15s;
+    }
+    .checkbox-filter-label input[type=checkbox]:checked + .checkbox-filter-box {
+      background:var(--ouro);
+    }
+    .checkbox-filter-label input[type=checkbox]:checked + .checkbox-filter-box::after {
+      content:''; display:block; width:5px; height:9px;
+      border:2px solid #1B3A3C; border-top:none; border-left:none;
+      transform:rotate(45deg) translateY(-1px);
+    }
+    .btn-caixa.hidden { display: none; }
+
+    /* Modal body — two-column grid for stats */
+    .modal-body { padding: 20px 24px; }
+    .modal-stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    }
+    .modal-stat {
+      display: flex; flex-direction: column; gap: 3px;
+      padding: 10px 12px; border-bottom: 1px solid var(--border);
+    }
+    .modal-stat:nth-child(odd) { border-right: 1px solid var(--border); }
+    .modal-stat.full-width { grid-column: 1 / -1; border-right: none; }
+    .modal-stat-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-faint); }
+    .modal-stat-value { font-size: 13px; font-weight: 700; color: var(--text); }
+    .modal-stat-value.price { font-size: 15px; color: var(--verde); }
+    .modal-stat-value.discount { color: #c0392b; }
+
+    .modal-section-title {
+      font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--text-faint); padding: 12px 12px 6px; grid-column: 1 / -1;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-footer {
+      padding: 14px 24px; border-top: 1px solid var(--border);
+      display: flex; gap: 10px; justify-content: flex-end;
+    }
+
+    /* COLUMN TOGGLE */
+    .col-toggle-bar {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding: 10px 20px; border-bottom: 1px solid var(--border); background: var(--surface-2);
+    }
+    .col-toggle {
+      display: flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border: 1px solid var(--border); border-radius: 20px;
+      font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+      cursor: pointer; background: var(--surface); color: var(--text-muted);
+      transition: all var(--transition); user-select: none;
+    }
+    .col-toggle.active { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .header-itaoca { padding: 12px 16px; }
+      .page-wrap { padding: 16px 12px 40px; }
+      .filters-grid { grid-template-columns: 1fr 1fr; }
+      .kpi-strip { grid-template-columns: 1fr 1fr; }
+      .search-input { width: 160px; }
+      .modal-stats-grid { grid-template-columns: 1fr; }
+      .modal-stat:nth-child(odd) { border-right: none; }
+      .modal-stat.full-width { grid-column: 1; }
+    }
+    @media (max-width: 480px) {
+      .filters-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header-itaoca">
+  <img
+    src="https://yata-apix-26d89c64-255e-44a8-a7e2-98a7a639f851.s3-object.locaweb.com.br/b057cb744b064181a08c9d4ce88202bf.jpg"
+    alt="Logo Itaoca" class="logo-itaoca"
+  />
+  <div class="header-text">
+    <h1>Imóveis Caixa</h1>
+    <p>Prospecção &amp; Filtragem para Arrematação</p>
+  </div>
+</header>
+<div class="header-gold-line"></div>
+
+<div class="page-wrap">
+
+  <!-- IMPORT -->
+  <div class="import-card" id="importCard">
+    <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" />
+    <div class="import-icon">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="18" x2="12" y2="12"/>
+        <line x1="9" y1="15" x2="15" y2="15"/>
+      </svg>
+    </div>
+    <h3>Importar Planilha de Imóveis Caixa</h3>
+    <p>Arraste a planilha .xlsx aqui ou clique para selecionar</p>
+    <p style="margin-top:6px;font-size:11px;color:var(--text-faint)">Formatos aceitos: .xlsx, .xls, .csv</p>
+    <div class="import-status" id="importStatus">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="importStatusText">Planilha carregada</span>
+      <span class="badge-count" id="importCount">0</span>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-strip" id="kpiStrip" style="display:none">
+    <div class="kpi-card">
+      <div class="kpi-label">Imóveis exibidos</div>
+      <div class="kpi-value" id="kpiExibidos">0</div>
+      <div class="kpi-sub" id="kpiTotalSub">de 0 total</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Menor Lance</div>
+      <div class="kpi-value" id="kpiMenorLance">—</div>
+      <div class="kpi-sub">nos filtros ativos</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Maior Desconto</div>
+      <div class="kpi-value" id="kpiMaiorDesconto">—</div>
+      <div class="kpi-sub">% abaixo avaliação</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cidades</div>
+      <div class="kpi-value" id="kpiCidades">0</div>
+      <div class="kpi-sub">distintas nos filtros</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Média de Avaliação</div>
+      <div class="kpi-value" id="kpiMediaAvaliacao">—</div>
+      <div class="kpi-sub">nos filtros ativos</div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filters-card" id="filtersCard" style="display:none">
+    <div class="filters-title">Filtros de Busca</div>
+    <div class="filters-grid">
+      <div class="filter-field">
+        <label>Busca geral</label>
+        <input type="text" id="fSearch" placeholder="Cidade, bairro, tipo…" />
+      </div>
+      <div class="filter-field">
+        <label>Tipo de imóvel</label>
+        <select id="fTipo"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Cidade</label>
+        <select id="fCidade"><option value="">Todas</option></select>
+      </div>
+      <div class="filter-field">
+        <label>UF</label>
+        <select id="fUF"><option value="">Todos</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Bairro</label>
+        <input type="text" id="fBairro" placeholder="Nome do bairro" />
+      </div>
+      <div class="filter-field">
+        <label>Modalidade de venda</label>
+        <select id="fModalidade"><option value="">Todas</option></select>
+      </div>
+      <div class="filter-field">
+        <label>Situação do imóvel</label>
+        <select id="fSituacao"><option value="">Todas</option></select>
+      </div>
+      <div class="filter-field wide">
+        <label>Lance mínimo (R$)</label>
+        <div class="filter-range">
+          <input type="number" id="fLanceMin" placeholder="De" step="1000" />
+          <span>até</span>
+          <input type="number" id="fLanceMax" placeholder="Até" step="1000" />
+        </div>
+      </div>
+      <div class="filter-field wide">
+        <label>Avaliação (R$)</label>
+        <div class="filter-range">
+          <input type="number" id="fAvalMin" placeholder="De" step="1000" />
+          <span>até</span>
+          <input type="number" id="fAvalMax" placeholder="Até" step="1000" />
+        </div>
+      </div>
+      <div class="filter-field">
+        <label>Desconto mínimo (%)</label>
+        <input type="number" id="fDescontoMin" placeholder="Ex: 20" min="0" max="100" />
+      </div>
+      <div class="filter-field">
+        <label>Área privativa mín. (m²)</label>
+        <input type="number" id="fAreaMin" placeholder="Ex: 50" min="0" />
+      </div>
+      <div class="filter-field">
+        <label>Aceita financiamento?</label>
+        <select id="fFinanciamento">
+          <option value="">Todos</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label>Aceita FGTS?</label>
+        <select id="fFGTS">
+          <option value="">Todos</option>
+          <option value="sim">Sim</option>
+          <option value="nao">Não</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label>Garagem</label>
+        <select id="fGaragem">
+          <option value="">Todos</option>
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+      </div>
+    </div>
+    <div class="filters-actions">
+      <button class="btn-primary" onclick="applyFilters()">Aplicar Filtros</button>
+      <button class="btn-secondary" onclick="clearFilters()">Limpar</button>
+      <button class="btn-gold" onclick="exportCSV()">Exportar CSV</button>
+      <span class="results-summary" id="resultsSummary"></span>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-card" id="tableCard" style="display:none">
+    <div class="table-header">
+      <span class="table-header-title">Resultado da Busca</span>
+      <div class="search-input-wrap">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input class="search-input" type="text" id="tableSearch" placeholder="Busca rápida na tabela…" />
+      </div>
+    </div>
+    <div class="col-toggle-bar" id="colToggleBar"></div>
+    <div class="table-scroll">
+      <table class="imoveis-table">
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <svg class="empty-state-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <h3>Nenhum imóvel encontrado</h3>
+      <p>Tente ajustar os filtros para ampliar a busca.</p>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <!-- Header verde com botão Caixa no topo -->
+    <div class="modal-header">
+      <div class="modal-header-top">
+        <div>
+          <h2 id="modalTitle">Imóvel</h2>
+          <div class="modal-header-sub" id="modalSubtitle"></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()" aria-label="Fechar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <!-- Botão Ver no site Caixa fica aqui no header -->
+      <a id="btnCaixa" class="btn-caixa hidden" href="#" target="_blank" rel="noopener noreferrer">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        Ver no site Caixa
+      </a>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeModal()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== STATE ===== */
+let allRows = [];
+let columns = [];
+let filtered = [];
+let sortCol = null;
+let sortDir = 1;
+let currentPage = 1;
+const PAGE_SIZE = 50;
+let visibleCols = new Set();
+
+/* ===== DEFAULT COLUMNS (from image) =====
+   Order: UF, Cidade, Bairro, Preço (lance), Valor de Avaliação, Desconto %, Tipo de Imóvel, Area Privativa, Modalidade de Venda
+*/
+const DEFAULT_COL_SEMANTICS = ['uf','cidade','bairro','lance','avaliacao','desconto','tipo','area','modalidade'];
+
+const COL_MAP = {
+  tipo:         ['tipo','tipo de imóvel','tipo imovel','tipo_imovel'],
+  cidade:       ['cidade','municipio','município'],
+  uf:           ['uf','estado'],
+  bairro:       ['bairro'],
+  endereco:     ['endereço','endereco','logradouro','endereço completo','end'],
+  avaliacao:    ['avaliação','avaliacao','valor avaliação','valor avaliacao','vl avaliacao','valor de avaliação','valor avaliação (r$)','valor de avaliação (r$)'],
+  lance:        ['preço','preco','lance mínimo','lance minimo','lance','valor mínimo','preco minimo','preço mínimo','valor minimo','lance min','preço (r$)','valor (r$)'],
+  desconto:     ['desconto','desc%','desc (%)','% desconto','desconto %'],
+  modalidade:   ['modalidade de venda','modalidade venda'],
+  situacao:     ['situação','situacao','ocupação','ocupacao'],
+  area:         ['área privativa','area privativa','área privativa (m²)','area privativa (m²)','área privativa(m²)','area privativa(m2)','área útil','area util','área','area(m2)','área(m2)'],
+  financiamento:['aceita financiamento','financiamento','fin','aceita financiamento?'],
+  fgts:          ['aceita fgts','fgts','aceita fgts?'],
+  garagem:      ['garagem'],
+  link:         ['link','url','acesso','endereço eletrônico','endereco eletronico'],
+  matricula:    ['matrícula','matricula','n°','numero','nº','cod','código','cod imóvel','código do imóvel','número'],
+  foto:         ['foto','imagem','image'],
+};
+
+function detectCol(name) {
+  const n = name.toLowerCase().trim();
+  // Pass 1: exact match
+  for (const [key, aliases] of Object.entries(COL_MAP)) {
+    if (aliases.some(a => n === a)) return key;
+  }
+  // Pass 2: alias is contained in column name (alias must be >= 6 chars to avoid false positives)
+  for (const [key, aliases] of Object.entries(COL_MAP)) {
+    if (aliases.some(a => a.length >= 6 && n.includes(a))) return key;
+  }
+  // Pass 3: column name contained in alias (also >= 6 chars)
+  for (const [key, aliases] of Object.entries(COL_MAP)) {
+    if (aliases.some(a => a.length >= 6 && a.includes(n))) return key;
+  }
+  return null;
+}
+
+let colMapping = {};
+
+/* ===== IMPORT ===== */
+document.getElementById('fileInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) readFile(file);
+});
+
+const importCard = document.getElementById('importCard');
+importCard.addEventListener('dragover', e => { e.preventDefault(); importCard.classList.add('dragover'); });
+importCard.addEventListener('dragleave', () => importCard.classList.remove('dragover'));
+importCard.addEventListener('drop', e => {
+  e.preventDefault(); importCard.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) readFile(file);
+});
+
+function readFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = new Uint8Array(e.target.result);
+      const wb = XLSX.read(data, { type: 'array', cellDates: true });
+      const ws = wb.Sheets[wb.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(ws, { defval: '' });
+      processData(json);
+    } catch(err) { alert('Erro ao ler planilha: ' + err.message); }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function processData(json) {
+  if (!json.length) { alert('Planilha vazia.'); return; }
+  allRows = json;
+  // Only include columns that have at least one non-empty value
+  const rawCols = Object.keys(json[0]);
+  columns = rawCols.filter(col => json.some(row => String(row[col] ?? '').trim() !== ''));
+
+  colMapping = {};
+  columns.forEach(col => {
+    const key = detectCol(col);
+    if (key && !colMapping[key]) colMapping[key] = col;
+  });
+
+  // Default visible: exactly the columns from the image, in order
+  visibleCols = new Set();
+  DEFAULT_COL_SEMANTICS.forEach(k => {
+    if (colMapping[k]) visibleCols.add(colMapping[k]);
+  });
+  // If a default col wasn't found by semantic mapping, add nothing extra —
+  // just fill up to ensure we always show something meaningful
+  if (visibleCols.size === 0) {
+    columns.slice(0, 9).forEach(c => visibleCols.add(c));
+  }
+
+  filtered = [...allRows];
+  populateFilterOptions();
+  buildColToggleBar();
+  renderKPIs();
+  renderTable();
+
+  document.getElementById('importStatus').classList.add('visible');
+  document.getElementById('importCount').textContent = allRows.length;
+  document.getElementById('importStatusText').textContent = `${allRows.length} imóveis carregados`;
+  document.getElementById('kpiStrip').style.display = '';
+  document.getElementById('filtersCard').style.display = '';
+  document.getElementById('tableCard').style.display = '';
+}
+
+/* ===== FILTER OPTIONS ===== */
+function uniqueValues(col) {
+  if (!col) return [];
+  const vals = allRows.map(r => String(r[col] || '').trim()).filter(Boolean);
+  return [...new Set(vals)].sort();
+}
+
+function populateFilterOptions() {
+  populateSelect('fTipo', uniqueValues(colMapping.tipo));
+  populateSelect('fCidade', uniqueValues(colMapping.cidade));
+  populateSelect('fUF', uniqueValues(colMapping.uf));
+  populateSelect('fModalidade', uniqueValues(colMapping.modalidade));
+  populateSelect('fSituacao', uniqueValues(colMapping.situacao));
+}
+
+function populateSelect(id, values) {
+  const sel = document.getElementById(id);
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">Todos</option>';
+  values.forEach(v => {
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v; sel.appendChild(opt);
+  });
+  sel.value = cur;
+}
+
+/* ===== FILTERS ===== */
+function applyFilters() {
+  const search = document.getElementById('fSearch').value.trim().toLowerCase();
+  const tipo = document.getElementById('fTipo').value;
+  const cidade = document.getElementById('fCidade').value;
+  const uf = document.getElementById('fUF').value;
+  const bairro = document.getElementById('fBairro').value.trim().toLowerCase();
+  const modalidade = document.getElementById('fModalidade').value;
+  const situacao = document.getElementById('fSituacao').value;
+  const lanceMin = parseFloat(document.getElementById('fLanceMin').value) || 0;
+  const lanceMax = parseFloat(document.getElementById('fLanceMax').value) || Infinity;
+  const avalMin  = parseFloat(document.getElementById('fAvalMin').value) || 0;
+  const avalMax  = parseFloat(document.getElementById('fAvalMax').value) || Infinity;
+  const descMin  = parseFloat(document.getElementById('fDescontoMin').value) || 0;
+  const areaMin  = parseFloat(document.getElementById('fAreaMin').value) || 0;
+  const fin      = document.getElementById('fFinanciamento').value.toLowerCase();
+  const tableSearchVal = document.getElementById('tableSearch').value.trim().toLowerCase();
+
+  filtered = allRows.filter(row => {
+    const rowStr = Object.values(row).join(' ').toLowerCase();
+    if (search && !rowStr.includes(search)) return false;
+    if (tableSearchVal && !rowStr.includes(tableSearchVal)) return false;
+    if (tipo && getCellVal(row, 'tipo') !== tipo) return false;
+    if (cidade && getCellVal(row, 'cidade') !== cidade) return false;
+    if (uf && getCellVal(row, 'uf') !== uf) return false;
+    if (bairro && !getCellVal(row, 'bairro').toLowerCase().includes(bairro)) return false;
+    if (modalidade && getCellVal(row, 'modalidade') !== modalidade) return false;
+    if (situacao && getCellVal(row, 'situacao') !== situacao) return false;
+
+    const lance = parseNum(getCellVal(row, 'lance'));
+    if (lance > 0 && (lance < lanceMin || lance > lanceMax)) return false;
+    const aval = parseNum(getCellVal(row, 'avaliacao'));
+    if (aval > 0 && (aval < avalMin || aval > avalMax)) return false;
+    const desc = calcDesconto(row);
+    if (desc > 0 && desc < descMin) return false;
+    const area = parseNum(getCellVal(row, 'area'));
+    if (area > 0 && area < areaMin) return false;
+
+    if (fin) {
+      const finVal = getCellVal(row, 'financiamento').toLowerCase();
+      if (fin === 'sim' && !finVal.includes('sim')) return false;
+      if (fin === 'nao' && finVal.includes('sim')) return false;
+    }
+    const fgtsFilter = document.getElementById('fFGTS').value.toLowerCase();
+    if (fgtsFilter) {
+      const fgtsVal = getCellVal(row, 'fgts').toLowerCase();
+      if (fgtsFilter === 'sim' && !fgtsVal.includes('sim')) return false;
+      if (fgtsFilter === 'nao' && fgtsVal.includes('sim')) return false;
+    }    const garagemFilter = String(document.getElementById('fGaragem')?.value || '').toLowerCase().trim();
+    if (garagemFilter) {
+      const garagemRaw = colMapping.garagem ? row[colMapping.garagem] : '';
+      const garagemNorm = String(garagemRaw ?? '').toLowerCase().trim();
+      const garagemBool = (
+        garagemRaw === true ||
+        garagemNorm === 'true' || garagemNorm === '1' || garagemNorm === '1.0' ||
+        garagemNorm === 'sim' || garagemNorm === 's' || garagemNorm === 'yes' || garagemNorm === 'y'
+      ) ? true : (
+        garagemRaw === false ||
+        garagemNorm === 'false' || garagemNorm === '0' || garagemNorm === '0.0' ||
+        garagemNorm === 'nao' || garagemNorm === 'não' || garagemNorm === 'n' || garagemNorm === 'no'
+      ) ? false : null;
+      if (garagemFilter === 'true' && garagemBool !== true) return false;
+      if (garagemFilter === 'false' && garagemBool !== false) return false;
+    }
+
+    return true;
+  });
+
+  currentPage = 1;
+  sortFiltered();
+  renderKPIs();
+  renderTable();
+}
+
+function clearFilters() {
+  ['fSearch','fBairro','fLanceMin','fLanceMax','fAvalMin','fAvalMax','fDescontoMin','fAreaMin','tableSearch'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fGaragem').value = '';
+  ['fTipo','fCidade','fUF','fModalidade','fSituacao','fFinanciamento','fFGTS'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  applyFilters();
+}
+
+document.addEventListener('input', function(e) {
+  if (e.target.id === 'tableSearch') applyFilters();
+});
+
+/* ===== HELPERS ===== */
+function getCellVal(row, semantic) {
+  const col = colMapping[semantic];
+  if (!col) return '';
+  return String(row[col] || '').trim();
+}
+
+function parseNum(val) {
+  if (val === '' || val === undefined || val === null) return 0;
+  const n = typeof val === 'number' ? val : parseFloat(String(val).replace(/[^\d,.-]/g, '').replace(',', '.'));
+  return isNaN(n) ? 0 : n;
+}
+
+function fmtBRL(n) {
+  if (!n || isNaN(n)) return '—';
+  return n.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
+}
+
+function calcDesconto(row) {
+  const aval = parseNum(getCellVal(row, 'avaliacao'));
+  const lance = parseNum(getCellVal(row, 'lance'));
+  if (aval > 0 && lance > 0 && aval > lance) return (aval - lance) / aval * 100;
+  const descCol = getCellVal(row, 'desconto');
+  if (descCol) return parseNum(descCol);
+  return 0;
+}
+
+/* ===== SORT ===== */
+function sortFiltered() {
+  if (!sortCol) return;
+  filtered.sort((a, b) => {
+    const va = String(a[sortCol] || '').trim();
+    const vb = String(b[sortCol] || '').trim();
+    const na = parseNum(va), nb = parseNum(vb);
+    if (!isNaN(na) && !isNaN(nb) && (na !== 0 || nb !== 0)) return (na - nb) * sortDir;
+    return va.localeCompare(vb, 'pt-BR') * sortDir;
+  });
+}
+
+function setSort(col) {
+  if (sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = 1; }
+  sortFiltered();
+  renderTable();
+}
+
+/* ===== KPIs ===== */
+function renderKPIs() {
+  document.getElementById('kpiExibidos').textContent = filtered.length;
+  document.getElementById('kpiTotalSub').textContent = `de ${allRows.length} total`;
+
+  const lances = filtered.map(r => parseNum(getCellVal(r, 'lance'))).filter(v => v > 0);
+  document.getElementById('kpiMenorLance').textContent = lances.length ? fmtBRL(Math.min(...lances)) : '—';
+
+  const descontos = filtered.map(r => calcDesconto(r)).filter(v => v > 0);
+  document.getElementById('kpiMaiorDesconto').textContent = descontos.length ? Math.max(...descontos).toFixed(1) + '%' : '—';
+
+  const cidades = new Set(filtered.map(r => getCellVal(r, 'cidade')).filter(Boolean));
+  document.getElementById('kpiCidades').textContent = cidades.size || '—';
+
+  const avals = filtered.map(r => parseNum(getCellVal(r, 'avaliacao'))).filter(v => v > 0);
+  const mediaAval = avals.length ? avals.reduce((a,b)=>a+b,0)/avals.length : null;
+  document.getElementById('kpiMediaAvaliacao').textContent = mediaAval ? fmtBRL(mediaAval) : '—';
+
+  document.getElementById('resultsSummary').innerHTML = `<strong>${filtered.length}</strong> imóvel(is) encontrado(s)`;
+}
+
+/* ===== COLUMN TOGGLE ===== */
+function buildColToggleBar() {
+  const bar = document.getElementById('colToggleBar');
+  bar.innerHTML = '';
+  columns.forEach(col => {
+    const btn = document.createElement('button');
+    btn.className = 'col-toggle' + (visibleCols.has(col) ? ' active' : '');
+    btn.textContent = col;
+    btn.addEventListener('click', () => {
+      if (visibleCols.has(col)) { if (visibleCols.size > 2) visibleCols.delete(col); }
+      else visibleCols.add(col);
+      btn.classList.toggle('active', visibleCols.has(col));
+      renderTable();
+    });
+    bar.appendChild(btn);
+  });
+}
+
+/* ===== TABLE ===== */
+function renderTable() {
+  const activeCols = columns.filter(c => visibleCols.has(c));
+  const thead = document.getElementById('tableHead');
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+  const pagination = document.getElementById('pagination');
+
+  // Header
+  thead.innerHTML = '';
+  const trH = document.createElement('tr');
+  activeCols.forEach(col => {
+    const th = document.createElement('th');
+    const isSorted = sortCol === col;
+    th.innerHTML = `${col} <span class="sort-icon">${isSorted ? (sortDir === 1 ? '▲' : '▼') : '⇅'}</span>`;
+    if (isSorted) th.classList.add('sorted');
+    th.addEventListener('click', () => setSort(col));
+    trH.appendChild(th);
+  });
+  // last header col
+  const thHint = document.createElement('th');
+  thHint.style.width = '60px';
+  trH.appendChild(thHint);
+  thead.appendChild(trH);
+
+  // Pagination
+  const total = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  currentPage = Math.min(currentPage, totalPages);
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageRows = filtered.slice(start, start + PAGE_SIZE);
+
+  tbody.innerHTML = '';
+  if (!pageRows.length) {
+    empty.style.display = '';
+    pagination.innerHTML = '';
+    return;
+  }
+  empty.style.display = 'none';
+
+  pageRows.forEach(row => {
+    const tr = document.createElement('tr');
+
+    // Click entire row → open modal
+    tr.addEventListener('click', (e) => {
+      // Prevent if clicked on a link inside
+      if (e.target.tagName === 'A') return;
+      openModal(row);
+    });
+
+    activeCols.forEach(col => {
+      const td = document.createElement('td');
+      const semKey = Object.entries(colMapping).find(([k,v]) => v===col)?.[0];
+      let val = String(row[col] ?? '').trim();
+
+      if (semKey === 'avaliacao' || semKey === 'lance') {
+        const n = parseNum(val);
+        td.className = 'price-cell';
+        td.textContent = n ? fmtBRL(n) : val || '—';
+      } else if (semKey === 'desconto') {
+        const n = parseNum(val);
+        const computed = calcDesconto(row);
+        const pct = n || computed;
+        td.className = 'discount-cell';
+        td.textContent = pct ? pct.toFixed(1) + '%' : '—';
+      } else if (semKey === 'financiamento') {
+        const v = val.toLowerCase();
+        td.innerHTML = v.includes('sim')
+          ? '<span class="badge badge-green">Sim</span>'
+          : v ? '<span class="badge badge-gray">Não</span>' : '—';
+      } else if (semKey === 'situacao') {
+        td.innerHTML = val ? `<span class="badge badge-blue">${val}</span>` : '—';
+      } else if (semKey === 'modalidade') {
+        td.innerHTML = val ? `<span class="badge badge-ouro">${val}</span>` : '—';
+      } else if (semKey === 'link' && val) {
+        td.innerHTML = `<a href="${val}" target="_blank" rel="noopener noreferrer" style="color:var(--ouro);font-weight:700;text-decoration:none;" onclick="event.stopPropagation()">Ver →</a>`;
+      } else {
+        td.className = (col.length > 20 || val.length > 30) ? 'wrap' : '';
+        td.textContent = val || '—';
+      }
+      tr.appendChild(td);
+    });
+
+    // Hint arrow on hover
+    const tdHint = document.createElement('td');
+    tdHint.className = 'row-hint-td';
+    tdHint.innerHTML = `<span class="row-hint"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></span>`;
+    tr.appendChild(tdHint);
+
+    tbody.appendChild(tr);
+  });
+
+  // Pagination controls
+  pagination.innerHTML = `<span class="pagination-info">Página ${currentPage} de ${totalPages} &nbsp;·&nbsp; ${total} imóveis</span>`;
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'page-btn'; prevBtn.innerHTML = '‹'; prevBtn.disabled = currentPage === 1;
+  prevBtn.addEventListener('click', () => { currentPage--; renderTable(); });
+  pagination.appendChild(prevBtn);
+
+  const maxPages = 7;
+  let startP = Math.max(1, currentPage - 3);
+  let endP = Math.min(totalPages, startP + maxPages - 1);
+  startP = Math.max(1, endP - maxPages + 1);
+  for (let p = startP; p <= endP; p++) {
+    const pb = document.createElement('button');
+    pb.className = 'page-btn' + (p === currentPage ? ' active' : '');
+    pb.textContent = p;
+    pb.addEventListener('click', (pp => () => { currentPage = pp; renderTable(); })(p));
+    pagination.appendChild(pb);
+  }
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'page-btn'; nextBtn.innerHTML = '›'; nextBtn.disabled = currentPage === totalPages;
+  nextBtn.addEventListener('click', () => { currentPage++; renderTable(); });
+  pagination.appendChild(nextBtn);
+}
+
+/* ===== MODAL ===== */
+function openModal(row) {
+  const tipo = getCellVal(row, 'tipo') || 'Imóvel';
+  const sub = [getCellVal(row, 'endereco') || getCellVal(row, 'bairro'), getCellVal(row, 'cidade'), getCellVal(row, 'uf')].filter(Boolean).join(' · ');
+  document.getElementById('modalTitle').textContent = tipo;
+  document.getElementById('modalSubtitle').textContent = sub;
+
+  // Link no topo do header
+  const linkCol = colMapping.link;
+  const link = linkCol ? String(row[linkCol] || '').trim() : '';
+  const btnCaixa = document.getElementById('btnCaixa');
+  if (link) {
+    btnCaixa.href = link;
+    btnCaixa.classList.remove('hidden');
+  } else {
+    btnCaixa.href = '#';
+    btnCaixa.classList.add('hidden');
+  }
+
+  const body = document.getElementById('modalBody');
+  body.innerHTML = '';
+
+  const grid = document.createElement('div');
+  grid.className = 'modal-stats-grid';
+
+  // Section: Valores
+  addSectionTitle(grid, 'Valores');
+  addStat(grid, 'Preço (Lance)', formatVal(row, 'lance'), 'price');
+  addStat(grid, 'Avaliação', formatVal(row, 'avaliacao'), 'price');
+  addStat(grid, 'Desconto', (() => { const d = calcDesconto(row); return d ? d.toFixed(2)+'%' : '—'; })(), 'discount');
+  addStat(grid, 'Área Privativa', getCellVal(row,'area') || '—');
+
+  // Section: Localização
+  addSectionTitle(grid, 'Localização');
+  const end = getCellVal(row,'endereco');
+  if (end) addStat(grid, 'Endereço', end, '', true);
+  addStat(grid, 'Bairro', getCellVal(row,'bairro') || '—');
+  addStat(grid, 'Cidade', getCellVal(row,'cidade') || '—');
+  addStat(grid, 'UF', getCellVal(row,'uf') || '—');
+
+  // Section: Detalhes
+  addSectionTitle(grid, 'Detalhes do Imóvel');
+  addStat(grid, 'Tipo', getCellVal(row,'tipo') || '—');
+  addStat(grid, 'Modalidade', getCellVal(row,'modalidade') || '—');
+  addStat(grid, 'Situação', getCellVal(row,'situacao') || '—');
+  addStat(grid, 'Financiamento', getCellVal(row,'financiamento') || '—');
+  addStat(grid, 'FGTS', getCellVal(row,'fgts') || '—');
+  const mat = getCellVal(row,'matricula');
+  if (mat) addStat(grid, 'Matrícula/Código', mat);
+
+  // Remaining columns not already shown
+  const shownSemantics = new Set(['lance','avaliacao','desconto','area','endereco','bairro','cidade','uf','tipo','modalidade','situacao','financiamento','fgts','matricula','link','foto']);
+  const shownCols = new Set(Object.entries(colMapping).filter(([k]) => shownSemantics.has(k)).map(([,v])=>v));
+
+  const extras = Object.keys(row).filter(col => !shownCols.has(col) && String(row[col] || '').trim());
+  if (extras.length) {
+    addSectionTitle(grid, 'Informações Adicionais');
+    extras.forEach(col => addStat(grid, col, String(row[col]).trim(), '', String(row[col]).trim().length > 40));
+  }
+
+  body.appendChild(grid);
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function addSectionTitle(parent, title) {
+  const div = document.createElement('div');
+  div.className = 'modal-section-title';
+  div.textContent = title;
+  parent.appendChild(div);
+}
+
+function addStat(parent, label, value, valueClass = '', fullWidth = false) {
+  const div = document.createElement('div');
+  div.className = 'modal-stat' + (fullWidth ? ' full-width' : '');
+  const valClass = valueClass ? ` ${valueClass}` : '';
+  div.innerHTML = `<span class="modal-stat-label">${label}</span><span class="modal-stat-value${valClass}">${value}</span>`;
+  parent.appendChild(div);
+}
+
+function formatVal(row, semantic) {
+  const val = getCellVal(row, semantic);
+  if (semantic === 'lance' || semantic === 'avaliacao') {
+    const n = parseNum(val);
+    return n ? fmtBRL(n) : val || '—';
+  }
+  return val || '—';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+document.getElementById('modalOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+/* ===== EXPORT CSV ===== */
+function exportCSV() {
+  if (!filtered.length) { alert('Nenhum dado para exportar.'); return; }
+  const activeCols = columns.filter(c => visibleCols.has(c));
+  const rows = [activeCols.join(';')];
+  filtered.forEach(row => {
+    rows.push(activeCols.map(c => `"${String(row[c]||'').replace(/"/g,'""')}"`).join(';'));
+  });
+  const blob = new Blob(['\ufeff' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'imoveis_caixa_filtrado.csv';
+  a.click();
+}
+
+lucide.createIcons();
+</script>
+</body>
+</html>
