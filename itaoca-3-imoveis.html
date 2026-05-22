@@ -5,115 +5,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Itaoca - 3 Oportunidades</title>
   <style>
-    :root{--bg:#f6f3ec;--card:#ffffff;--line:#d9c7a2;--gold:#a6823d;--green:#1b3a3c;--green2:#244c4f;--text:#162126;--muted:#6b7280;--good:#1f7a4d;--warn:#b7791f;--bad:#b42318;--soft:#edf2f2;}
-    *{box-sizing:border-box} body{margin:0;font-family:Montserrat,Arial,sans-serif;background:linear-gradient(180deg,#faf8f3 0%, #f3efe6 100%);color:var(--text)}
-    header{background:var(--green);color:#fff;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:5;box-shadow:0 6px 24px rgba(0,0,0,.12)}
-    header h1{margin:0;font-size:22px} header p{margin:4px 0 0;color:#d8e6e7;font-size:13px}
-    .wrap{max-width:1480px;margin:0 auto;padding:20px}
-    .toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center;margin-bottom:18px}
-    .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
-    .btn-primary{background:var(--gold);color:#fff}.btn-secondary{background:#fff;color:var(--green);border:1px solid #d8d5cd}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
-    .card{background:var(--card);border:1px solid #ece5d8;border-radius:20px;box-shadow:0 10px 30px rgba(27,58,60,.07);overflow:hidden}
-    .card .head{padding:18px 18px 14px;background:linear-gradient(180deg,#fff, #fbf8f1);border-bottom:1px solid #efe6d7}
-    .badge{display:inline-flex;padding:6px 10px;border-radius:999px;background:#e8f5ee;color:var(--good);font-size:12px;font-weight:800;margin-bottom:10px}
-    .badge.warn{background:#fff5e6;color:var(--warn)}
-    .titleRow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-    .titleRow h2{margin:0;font-size:18px;color:var(--green)}
-    .sub{margin:6px 0 0;color:var(--muted);font-size:13px}
-    .body{padding:18px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field label{font-size:12px;color:#6a7280;font-weight:700}
-    .field input,.field select,.field textarea{width:100%;border:1px solid #e4e1da;border-radius:12px;padding:12px 12px;font-size:14px;background:#fff;color:var(--text);outline:none}
-    .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(166,130,61,.10)}
-    .field.full{grid-column:1/-1}
-    .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
-    .mini{background:var(--soft);border:1px solid #dde7e7;border-radius:16px;padding:12px}
-    .mini .lab{font-size:12px;color:#6b7280;font-weight:700}.mini .val{font-size:20px;font-weight:900;margin-top:4px}
-    .mini.good .val{color:var(--good)} .mini.gold .val{color:var(--gold)} .mini.bad .val{color:var(--bad)}
-    .stats{margin-top:14px;border-top:1px dashed #e3dccf;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .stat{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:8px 0;border-bottom:1px solid #f2ede1}
-    .stat span:first-child{color:#6b7280}.stat strong{color:#1f2937}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
-    .summary{position:static;top:auto}
-    .hero{background:linear-gradient(135deg,var(--green),#29565a);color:#fff;border-radius:18px;padding:18px;border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-    .hero .status{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:12px}
-    .hero .value{font-size:32px;font-weight:900;line-height:1.1}.hero .desc{color:#dce9e9;margin-top:6px}
-    .hero-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .hero-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px}
-    .hero-box .lab{font-size:12px;color:#d0e1e1;font-weight:700}.hero-box .num{font-size:18px;font-weight:900;margin-top:4px}
-    .compare{margin-top:18px;background:#fff;border-radius:18px;border:1px solid #ece5d8;padding:14px;overflow:auto}
-    table{width:100%;border-collapse:collapse;min-width:940px} th,td{padding:12px 10px;border-bottom:1px solid #f0eadf;text-align:left;font-size:13px;vertical-align:top}
-    th{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.best{background:#f3faf5}.rank{font-weight:900}
-    .muted{color:var(--muted)} .small{font-size:12px} .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}
-    .print-only{display:none}
-    @media print{header,.toolbar,.actions,.note{display:none !important}.wrap{padding:0}.grid{grid-template-columns:1fr}.summary{position:static}.card{break-inside:avoid;box-shadow:none}.compare{overflow:visible}.print-only{display:block}.hero{break-inside:avoid}}
-    @media (max-width:1200px){.grid{grid-template-columns:1fr}.summary{position:static}}
-	
+:root{
+  --bg:#f6f3ec;--card:#ffffff;--line:#d9c7a2;--gold:#a6823d;--green:#1b3a3c;--green2:#244c4f;--text:#162126;--muted:#6b7280;--good:#1f7a4d;--warn:#b7791f;--bad:#b42318;--soft:#edf2f2;
+  --radius-xl:24px;--radius-lg:18px;--radius-md:14px;--shadow:0 16px 40px rgba(27,58,60,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,Arial,sans-serif;background:linear-gradient(180deg,#faf8f3 0%, #f3efe6 100%);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:5;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+header h1{margin:0;font-size:clamp(1.05rem,1.7vw,1.35rem);font-weight:600;line-height:1.15;letter-spacing:.2px}
+header p{margin:4px 0 0;color:#d8e6e7;font-size:13px}
+.header-itaoca{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px;padding:14px 20px;background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.logo-itaoca{width:clamp(120px,22vw,240px);max-width:100%;max-height:62px;height:auto;object-fit:contain;display:block}
+.header-text{min-width:0;text-align:right}
+.header-text h1{margin:0;color:#fff;font-weight:600;line-height:1.15;letter-spacing:.25px;overflow-wrap:anywhere;font-size:clamp(1.05rem,2vw,1.45rem)}
+.wrap{max-width:1480px;margin:0 auto;padding:20px}
+.toolbar{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;margin-bottom:18px}
+.toolbar.callout{display:grid;grid-template-columns:1.5fr auto;gap:16px 20px;align-items:center;padding:18px 20px;margin:18px 0 22px;border-radius:20px;background:linear-gradient(135deg,rgba(27,58,60,.96),rgba(31,74,78,.92));border:1px solid rgba(166,130,61,.28);box-shadow:var(--shadow)}
+.callout-copy{min-width:0}
+.eyebrow{display:inline-block;margin-bottom:8px;padding:5px 10px;border-radius:999px;background:rgba(166,130,61,.16);color:#f2e6c8;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+.callout-copy h2{
+  margin:0;
+  color:#fff;
+  font-weight:500;
+  line-height:1.28;
+  font-size:clamp(1.04rem,1.1vw,1.18rem);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+  display:block;
+}
+.callout-actions,.actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
+.btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:#fff;box-shadow:0 8px 18px rgba(166,130,61,.22)}
+.btn-secondary{background:#fff;color:var(--green);border:1px solid #d8d5cd;box-shadow:0 6px 14px rgba(0,0,0,.04)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
+.card{background:var(--card);border:1px solid #ece5d8;border-radius:var(--radius-xl);box-shadow:var(--shadow);overflow:hidden}
+.card .head{padding:18px 18px 14px;background:linear-gradient(180deg,#fff,#fbf8f1);border-bottom:1px solid #efe6d7}
+.badge{display:inline-flex;padding:6px 10px;border-radius:999px;background:#e8f5ee;color:var(--good);font-size:12px;font-weight:800;margin-bottom:10px;letter-spacing:.02em}
+.badge.warn{background:#fff5e6;color:var(--warn)}
+.titleRow{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.titleRow h2{margin:0;font-size:18px;color:var(--green)}
+.sub{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}
+.body{padding:18px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;color:#6a7280;font-weight:700}
+.field input,.field select,.field textarea{width:100%;border:1px solid #e4e1da;border-radius:12px;padding:12px 12px;font-size:14px;background:#fff;color:var(--text);outline:none;min-height:44px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(166,130,61,.10)}
+.field.full{grid-column:1/-1}
+.mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.mini{background:var(--soft);border:1px solid #dde7e7;border-radius:16px;padding:12px}
+.mini .lab{font-size:12px;color:#6b7280;font-weight:700}.mini .val{font-size:20px;font-weight:900;margin-top:4px}
+.mini.good .val{color:var(--good)} .mini.gold .val{color:var(--gold)} .mini.bad .val{color:var(--bad)}
+.stats{margin-top:14px;border-top:1px dashed #e3dccf;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:8px 0;border-bottom:1px solid #f2ede1}
+.stat span:first-child{color:#6b7280}.stat strong{color:#1f2937}
+.summary{position:static;top:auto;grid-column:1/-1;width:100%}
+.hero{background:linear-gradient(135deg,var(--green),#29565a);color:#fff;border-radius:18px;padding:18px;border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.hero .status{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:12px}
+.hero .value{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;line-height:1.1}.hero .desc{color:#dce9e9;margin-top:6px;line-height:1.45}
+.hero-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.hero-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px}
+.hero-box .lab{font-size:12px;color:#d0e1e1;font-weight:700}.hero-box .num{font-size:18px;font-weight:900;margin-top:4px}
+.compare{margin-top:18px;background:#fff;border-radius:18px;border:1px solid #ece5d8;padding:14px;overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:940px} th,td{padding:12px 10px;border-bottom:1px solid #f0eadf;text-align:left;font-size:13px;vertical-align:top}
+th{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.best{background:#f3faf5}.rank{font-weight:900}
+.muted{color:var(--muted)} .small{font-size:12px} .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}
+.print-only{display:none}
+@media (max-width:1200px){.grid{grid-template-columns:1fr}}
+@media (max-width:768px){
+  .header-itaoca{grid-template-columns:1fr;justify-items:center;text-align:center;padding:12px 14px;gap:10px}
+  .logo-itaoca{width:min(72vw,220px);max-height:52px}
+  .header-text{text-align:center}
+  .header-text h1{font-size:clamp(1rem,4.8vw,1.35rem)}
+  .toolbar.callout{grid-template-columns:1fr;padding:16px;text-align:center}
+  .callout-actions,.actions{justify-content:stretch}
+  .callout-actions .btn,.actions .btn{flex:1 1 100%;width:100%}
+  .callout-copy h2{
+  font-size:clamp(1rem,4.8vw,1.25rem);
+  white-space:normal;
+  overflow:visible;
+  text-overflow:clip;
+  max-width:100%;
+}
+  .form-grid,.mini-grid,.stats,.hero-cols{grid-template-columns:1fr}
+  .titleRow{align-items:center}
+  .compare{padding:10px}
+}
+@media print{header,.toolbar,.actions,.note{display:none !important}.wrap{padding:0}.grid{grid-template-columns:1fr}.summary{position:static}.card{break-inside:avoid;box-shadow:none}.compare{overflow:visible}.print-only{display:block}.hero{break-inside:avoid}}
+@media (max-width:768px){
+  .callout-actions,
+  .actions{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content:space-between;
+    align-items:stretch;
+    gap:8px;
+    width:100%;
+  }
 
+  .callout-actions .btn,
+  .actions .btn{
+    flex:1 1 0;
+    width:0;
+    min-width:0;
+    max-width:none;
+    padding:8px 10px;
+    font-size:12px;
+    min-height:38px;
+  }
+}
+@media (min-width: 769px){
+  .wrap > .toolbar:last-of-type{
+    margin-top: 22px;
+    padding-top: 6px;
+  }
 
-.header-itaoca::after {
-  content: "";
-  width: var(--header-side-space);
-  height: 1px;
-  visibility: hidden;
+  .wrap > .toolbar:last-of-type .actions{
+    justify-content:flex-end;
+  }
 }
 
-.logo-itaoca {
-  width: min(var(--header-side-space), 240px);
-  max-height: 72px;
-  height: auto;
-  border-radius: 6px;
-  object-fit: contain;
-  justify-self: start;
-  display: block;
-}
+</style>
 
+<header class="header-itaoca">
+  <img
+    src="https://yata-apix-26d89c64-255e-44a8-a7e2-98a7a639f851.s3-object.locaweb.com.br/b057cb744b064181a08c9d4ce88202bf.jpg"
+    alt="Logo Itaoca"
+    class="logo-itaoca"
+  />
 
-.header-text {
-  min-width: 0;
-  text-align: right;
-  width: 100%;
-}
-
-.header-text h1 {
-  margin: 0;
-  color: var(--branco);
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.5px;
-  white-space: normal;
-}
-  
-	
-  </style>
-</head>
-<body>
-   
-  </header>
-  <header class="header-itaoca">
-    <img
-      src="https://yata-apix-26d89c64-255e-44a8-a7e2-98a7a639f851.s3-object.locaweb.com.br/b057cb744b064181a08c9d4ce88202bf.jpg"
-      alt="Logo Itaoca"
-      class="logo-itaoca"
-    />
-
-    <div class="header-text">
-      <h1>Oportunidades de investimento - Comparativo</h1>
-    </div>
-	
-  </header>
+  <div class="header-text">
+    <h1>Oportunidades de investimento</h1>
+  </div>
+</header>
 
   <div class="wrap">
-    <div class="toolbar">
-      <div class="muted small"><strong></strong>.</div>
-      <div class="actions">
-        <button class="btn btn-secondary" onclick="window.print()">Salvar PDF</button>
-        <button class="btn btn-secondary" onclick="salvarComoImagem()">Salvar imagem</button>
-        <button class="btn btn-secondary" onclick="limparTudo()">Limpar</button>
-      </div>
+    
+	<section class="toolbar callout">
+    <div class="callout-copy">
+      <span class="eyebrow">Seleção Itaoca</span>
+      <h2>Pensando no tipo de investimento que você procura, a Itaoca selecionou estes imóveis com seu perfil.</h2>
     </div>
+	</section>
 
     <div class="grid">
       
@@ -217,6 +255,16 @@
         </div>
       </div>
     </section>
+ </div>
+	<div class="toolbar">
+  <div class="muted small">&nbsp;</div>
+  <div class="actions">
+    <button class="btn btn-secondary" onclick="window.print()">Salvar PDF</button>
+    <button class="btn btn-secondary" onclick="salvarComoImagem()">Salvar imagem</button>
+    <button class="btn btn-secondary" onclick="limparTudo()">Limpar</button>
+  </div>
+</div>
+</div>
 <script>
 const PLANOS={"2000":{nome:"Classic",fee:2000,percAssessoria:12,maxArrematacoes:1},"5000":{nome:"Gold",fee:5000,percAssessoria:11,maxArrematacoes:2},"7000":{nome:"Exclusive",fee:7000,percAssessoria:10,maxArrematacoes:3},"10000":{nome:"Prime",fee:10000,percAssessoria:9,maxArrematacoes:4},"25000":{nome:"Private",fee:25000,percAssessoria:8,maxArrematacoes:8}};
 const ids=[1,2,3];
@@ -241,14 +289,46 @@ function calcularItem(i){const titulo=v('titulo'+i,'Imóvel '+i);const aquisicao
 function calcularAll(){const itens=ids.map(calcularItem);const valid=itens.filter(x=>x.aquisicao>0||x.mercado>0);const best=valid.slice().sort((a,b)=>b.descontoLiquido-a.descontoLiquido)[0]||null;txt('heroStatus',valid.length?('Maior desconto líquido: '+(best?.titulo||'—')):'Aguardando dados');txt('heroValor',best?fmtBRL(best.lucro):fmtBRL(0));txt('heroDesc',best?('O destaque comercial está em '+fmtPct(best.descontoBruto)+' de desconto bruto e '+fmtPct(best.descontoLiquido)+' de desconto líquido.'): 'Preencha os três imóveis para destacar a melhor oportunidade.');txt('heroDesconto',best?fmtPct(best.descontoLiquido):fmtPct(0));const tbody=el('tbodyResumo');if(tbody)tbody.innerHTML=itens.map(x=>`<tr class="${best&&x.i===best.i?'best':''}"><td><strong>${x.titulo||'Imóvel '+x.i}</strong><div class="muted small">${best&&x.i===best.i?'Maior desconto':'Opção '+x.i}</div></td><td>${fmtBRL(x.aquisicao)}</td><td>${fmtBRL(x.mercado)}</td><td>${fmtPct(x.descontoLiquido)}</td><td>${fmtBRL(x.desembolso)}</td><td>${fmtBRL(x.lucro)}</td></tr>`).join('');ids.forEach(i=>{const x=itens.find(z=>z.i===i);txt('cplano'+i,fmtBRL(x.custoPlano));txt('ass'+i,fmtBRL(x.valorAss));txt('des'+i,fmtBRL(x.desembolso));txt('fix'+i,fmtBRL(x.custosFixos));txt('vlq'+i,fmtBRL(x.mercado));txt('lucro'+i,fmtBRL(x.lucro));txt('desconto'+i,fmtPct(x.descontoLiquido));txt('sub'+i,x.aquisicao>0&&x.mercado>0?`Compra com ${fmtPct(x.descontoBruto)} de desconto bruto vs. mercado.`:'Preencha os dados principais.');const rank=el('rank'+i);const badge=el('badge'+i);if(rank)rank.textContent=best&&x.i===best.i?'Maior desconto':'Opção '+i;if(badge)badge.textContent=x.lucro>=0?'Oportunidade':'Risco';badge?.classList.toggle('warn',x.lucro<0)})}
 function limparTudo(){['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>ids.forEach(i=>{const e=el(p+i);if(!e)return;e.value=(e.tagName==='SELECT'&&p==='ratio')?'inteiro':(e.tagName==='SELECT'&&p==='plano')?'0':''}));ids.forEach(i=>setRateioState(i));calcularAll()}
 window.addEventListener('beforeprint',calcularAll);
-function salvarComoImagem(){
-  const target=document.body;
-  html2canvas(target,{scale:2,useCORS:true,backgroundColor:'#f6f3ec'}).then(canvas=>{
+async function salvarComoImagem(){
+  const body=document.body;
+  const root=document.documentElement;
+  const ox=body.style.overflowX;
+  const oy=body.style.overflowY;
+  const scrollX=window.scrollX||0;
+  const scrollY=window.scrollY||0;
+  body.style.overflowX='visible';
+  body.style.overflowY='visible';
+  try{
+    if(document.fonts && document.fonts.ready) await document.fonts.ready;
+    await new Promise(r=>setTimeout(r,300));
+    window.scrollTo(0,0);
+    const canvas=await html2canvas(body,{
+      scale:2,
+      useCORS:true,
+      backgroundColor:'#f6f3ec',
+      windowWidth:Math.max(root.scrollWidth,root.clientWidth),
+      windowHeight:root.scrollHeight,
+      scrollX:0,
+      scrollY:0,
+      width:root.scrollWidth,
+      height:root.scrollHeight,
+      removeContainer:true,
+      onclone:doc=>{
+        const hidden=doc.querySelectorAll('header,.toolbar');
+        hidden.forEach(el=>{
+          if(el && el.style) el.style.overflow='visible';
+        });
+      }
+    });
     const link=document.createElement('a');
     link.download='itaoca-3-imoveis.png';
     link.href=canvas.toDataURL('image/png');
     link.click();
-  });
+  }finally{
+    body.style.overflowX=ox;
+    body.style.overflowY=oy;
+    window.scrollTo(scrollX,scrollY);
+  }
 }
 
 document.addEventListener('DOMContentLoaded',()=>{attachCurrency(['aquisicao1','mercado1','div1','aquisicao2','mercado2','div2','aquisicao3','mercado3','div3']);ids.forEach(i=>{['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>{const e=el(p+i);if(!e)return;e.addEventListener('input',()=>calcularAll());e.addEventListener('change',()=>{if(p==='plano')applyPlano(i);else if(p==='ratio'){setRateioState(i);calcularAll()}else calcularAll()})});const pr=el('percRatio'+i);if(pr){pr.addEventListener('input',()=>calcularAll());pr.addEventListener('blur',()=>normalizePercRatio(i))}});ids.forEach(i=>applyPlano(i));calcularAll()});
