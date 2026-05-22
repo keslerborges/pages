@@ -110,6 +110,7 @@
       <div class="muted small"><strong></strong>.</div>
       <div class="actions">
         <button class="btn btn-secondary" onclick="window.print()">Salvar PDF</button>
+        <button class="btn btn-secondary" onclick="salvarComoImagem()">Salvar imagem</button>
         <button class="btn btn-secondary" onclick="limparTudo()">Limpar</button>
       </div>
     </div>
@@ -240,7 +241,18 @@ function calcularItem(i){const titulo=v('titulo'+i,'Imóvel '+i);const aquisicao
 function calcularAll(){const itens=ids.map(calcularItem);const valid=itens.filter(x=>x.aquisicao>0||x.mercado>0);const best=valid.slice().sort((a,b)=>b.descontoLiquido-a.descontoLiquido)[0]||null;txt('heroStatus',valid.length?('Maior desconto líquido: '+(best?.titulo||'—')):'Aguardando dados');txt('heroValor',best?fmtBRL(best.lucro):fmtBRL(0));txt('heroDesc',best?('O destaque comercial está em '+fmtPct(best.descontoBruto)+' de desconto bruto e '+fmtPct(best.descontoLiquido)+' de desconto líquido.'): 'Preencha os três imóveis para destacar a melhor oportunidade.');txt('heroDesconto',best?fmtPct(best.descontoLiquido):fmtPct(0));const tbody=el('tbodyResumo');if(tbody)tbody.innerHTML=itens.map(x=>`<tr class="${best&&x.i===best.i?'best':''}"><td><strong>${x.titulo||'Imóvel '+x.i}</strong><div class="muted small">${best&&x.i===best.i?'Maior desconto':'Opção '+x.i}</div></td><td>${fmtBRL(x.aquisicao)}</td><td>${fmtBRL(x.mercado)}</td><td>${fmtPct(x.descontoLiquido)}</td><td>${fmtBRL(x.desembolso)}</td><td>${fmtBRL(x.lucro)}</td></tr>`).join('');ids.forEach(i=>{const x=itens.find(z=>z.i===i);txt('cplano'+i,fmtBRL(x.custoPlano));txt('ass'+i,fmtBRL(x.valorAss));txt('des'+i,fmtBRL(x.desembolso));txt('fix'+i,fmtBRL(x.custosFixos));txt('vlq'+i,fmtBRL(x.mercado));txt('lucro'+i,fmtBRL(x.lucro));txt('desconto'+i,fmtPct(x.descontoLiquido));txt('sub'+i,x.aquisicao>0&&x.mercado>0?`Compra com ${fmtPct(x.descontoBruto)} de desconto bruto vs. mercado.`:'Preencha os dados principais.');const rank=el('rank'+i);const badge=el('badge'+i);if(rank)rank.textContent=best&&x.i===best.i?'Maior desconto':'Opção '+i;if(badge)badge.textContent=x.lucro>=0?'Oportunidade':'Risco';badge?.classList.toggle('warn',x.lucro<0)})}
 function limparTudo(){['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>ids.forEach(i=>{const e=el(p+i);if(!e)return;e.value=(e.tagName==='SELECT'&&p==='ratio')?'inteiro':(e.tagName==='SELECT'&&p==='plano')?'0':''}));ids.forEach(i=>setRateioState(i));calcularAll()}
 window.addEventListener('beforeprint',calcularAll);
+function salvarComoImagem(){
+  const target=document.body;
+  html2canvas(target,{scale:2,useCORS:true,backgroundColor:'#f6f3ec'}).then(canvas=>{
+    const link=document.createElement('a');
+    link.download='itaoca-3-imoveis.png';
+    link.href=canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
 document.addEventListener('DOMContentLoaded',()=>{attachCurrency(['aquisicao1','mercado1','div1','aquisicao2','mercado2','div2','aquisicao3','mercado3','div3']);ids.forEach(i=>{['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>{const e=el(p+i);if(!e)return;e.addEventListener('input',()=>calcularAll());e.addEventListener('change',()=>{if(p==='plano')applyPlano(i);else if(p==='ratio'){setRateioState(i);calcularAll()}else calcularAll()})});const pr=el('percRatio'+i);if(pr){pr.addEventListener('input',()=>calcularAll());pr.addEventListener('blur',()=>normalizePercRatio(i))}});ids.forEach(i=>applyPlano(i));calcularAll()});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
 </html>
