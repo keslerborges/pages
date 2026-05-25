@@ -11,10 +11,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:Montserrat,Arial,sans-serif;background:linear-gradient(180deg,#faf8f3 0%, #f3efe6 100%);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-header{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:0;z-index:5;box-shadow:0 6px 24px rgba(0,0,0,.12)}
-header h1{margin:0;font-size:clamp(1.05rem,1.7vw,1.35rem);font-weight:600;line-height:1.15;letter-spacing:.2px}
-header p{margin:4px 0 0;color:#d8e6e7;font-size:13px}
+body{margin:0;font-family:Montserrat,Arial,sans-serif;background:linear-gradient(180deg,#faf8f3 0%,#f3efe6 100%);color:var(--text);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 .header-itaoca{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:16px;padding:14px 20px;background:linear-gradient(135deg,var(--green),var(--green2));color:#fff;box-shadow:0 6px 24px rgba(0,0,0,.12)}
 .logo-itaoca{width:clamp(120px,22vw,240px);max-width:100%;max-height:62px;height:auto;object-fit:contain;display:block}
 .header-text{min-width:0;text-align:right}
@@ -24,18 +21,7 @@ header p{margin:4px 0 0;color:#d8e6e7;font-size:13px}
 .toolbar.callout{display:grid;grid-template-columns:1.5fr auto;gap:16px 20px;align-items:center;padding:18px 20px;margin:18px 0 22px;border-radius:20px;background:linear-gradient(135deg,rgba(27,58,60,.96),rgba(31,74,78,.92));border:1px solid rgba(166,130,61,.28);box-shadow:var(--shadow)}
 .callout-copy{min-width:0}
 .eyebrow{display:inline-block;margin-bottom:8px;padding:5px 10px;border-radius:999px;background:rgba(166,130,61,.16);color:#f2e6c8;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
-.callout-copy h2{
-  margin:0;
-  color:#fff;
-  font-weight:500;
-  line-height:1.28;
-  font-size:clamp(1.04rem,1.1vw,1.18rem);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
-  display:block;
-}
+.callout-copy h2{margin:0;color:#fff;font-weight:500;line-height:1.28;font-size:clamp(1.04rem,1.1vw,1.18rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;display:block}
 .callout-actions,.actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
 .btn{border:0;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease}
 .btn:hover{transform:translateY(-1px)}
@@ -58,23 +44,49 @@ header p{margin:4px 0 0;color:#d8e6e7;font-size:13px}
 .field.full{grid-column:1/-1}
 .mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
 .mini{background:var(--soft);border:1px solid #dde7e7;border-radius:16px;padding:12px}
-.mini .lab{font-size:12px;color:#6b7280;font-weight:700}.mini .val{font-size:20px;font-weight:900;margin-top:4px}
-.mini.good .val{color:var(--good)} .mini.gold .val{color:var(--gold)} .mini.bad .val{color:var(--bad)}
+.mini .lab{font-size:12px;color:#6b7280;font-weight:700}
+.mini .val{font-size:20px;font-weight:900;margin-top:4px}
+.mini.good .val{color:var(--good)}
+.mini.gold .val{color:var(--gold)}
+.mini.bad .val{color:var(--bad)}
+.mini.reforma .val{color:var(--warn)}
 .stats{margin-top:14px;border-top:1px dashed #e3dccf;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .stat{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:8px 0;border-bottom:1px solid #f2ede1}
-.stat span:first-child{color:#6b7280}.stat strong{color:#1f2937}
+.stat span:first-child{color:#6b7280}
+.stat strong{color:#1f2937}
 .summary{position:static;top:auto;grid-column:1/-1;width:100%}
 .hero{background:linear-gradient(135deg,var(--green),#29565a);color:#fff;border-radius:18px;padding:18px;border:1px solid rgba(255,255,255,.15);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
 .hero .status{display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);padding:7px 12px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:12px}
-.hero .value{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;line-height:1.1}.hero .desc{color:#dce9e9;margin-top:6px;line-height:1.45}
-.hero-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.hero .value{font-size:clamp(1.6rem,3vw,2.1rem);font-weight:900;line-height:1.1}
+.hero .desc{color:#dce9e9;margin-top:6px;line-height:1.45}
+.hero-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
 .hero-box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px}
-.hero-box .lab{font-size:12px;color:#d0e1e1;font-weight:700}.hero-box .num{font-size:18px;font-weight:900;margin-top:4px}
+.hero-box .lab{font-size:12px;color:#d0e1e1;font-weight:700}
+.hero-box .num{font-size:18px;font-weight:900;margin-top:4px}
 .compare{margin-top:18px;background:#fff;border-radius:18px;border:1px solid #ece5d8;padding:14px;overflow:auto}
-table{width:100%;border-collapse:collapse;min-width:940px} th,td{padding:12px 10px;border-bottom:1px solid #f0eadf;text-align:left;font-size:13px;vertical-align:top}
-th{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.04em}.best{background:#f3faf5}.rank{font-weight:900}
-.muted{color:var(--muted)} .small{font-size:12px} .note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}
+table{width:100%;border-collapse:collapse;min-width:980px}
+th,td{padding:12px 10px;border-bottom:1px solid #f0eadf;text-align:left;font-size:13px;vertical-align:top}
+th{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.best{background:#f3faf5}
+.rank{font-weight:900}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.note{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}
 .print-only{display:none}
+/* Reforma */
+.reforma-section{margin-top:14px;border-top:1px dashed #e3dccf;padding-top:14px}
+.reforma-title{font-size:12px;color:#6a7280;font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em}
+.reforma-toggle{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.reforma-toggle label{font-size:13px;color:var(--text);font-weight:600;cursor:pointer}
+.toggle-switch{position:relative;width:40px;height:22px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0}
+.toggle-slider{position:absolute;cursor:pointer;inset:0;background:#d1d5db;border-radius:999px;transition:.25s}
+.toggle-slider:before{content:'';position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.25s}
+.toggle-switch input:checked + .toggle-slider{background:var(--gold)}
+.toggle-switch input:checked + .toggle-slider:before{transform:translateX(18px)}
+.reforma-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* tag reforma no resumo */
+.tag-reforma{display:inline-block;padding:2px 7px;border-radius:999px;background:#fff5e6;color:var(--warn);font-size:11px;font-weight:700;margin-left:6px;vertical-align:middle}
 @media (max-width:1200px){.grid{grid-template-columns:1fr}}
 @media (max-width:768px){
   .header-itaoca{grid-template-columns:1fr;justify-items:center;text-align:center;padding:12px 14px;gap:10px}
@@ -84,187 +96,235 @@ th{color:var(--green);font-size:12px;text-transform:uppercase;letter-spacing:.04
   .toolbar.callout{grid-template-columns:1fr;padding:16px;text-align:center}
   .callout-actions,.actions{justify-content:stretch}
   .callout-actions .btn,.actions .btn{flex:1 1 100%;width:100%}
-  .callout-copy h2{
-  font-size:clamp(1rem,4.8vw,1.25rem);
-  white-space:normal;
-  overflow:visible;
-  text-overflow:clip;
-  max-width:100%;
-}
-  .form-grid,.mini-grid,.stats,.hero-cols{grid-template-columns:1fr}
+  .callout-copy h2{font-size:clamp(1rem,4.8vw,1.25rem);white-space:normal;overflow:visible;text-overflow:clip;max-width:100%}
+  .form-grid,.mini-grid,.stats,.hero-cols,.reforma-fields{grid-template-columns:1fr}
   .titleRow{align-items:center}
   .compare{padding:10px}
 }
 @media print{header,.toolbar,.actions,.note{display:none !important}.wrap{padding:0}.grid{grid-template-columns:1fr}.summary{position:static}.card{break-inside:avoid;box-shadow:none}.compare{overflow:visible}.print-only{display:block}.hero{break-inside:avoid}}
 @media (max-width:768px){
-  .callout-actions,
-  .actions{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    justify-content:space-between;
-    align-items:stretch;
-    gap:8px;
-    width:100%;
-  }
-
-  .callout-actions .btn,
-  .actions .btn{
-    flex:1 1 0;
-    width:0;
-    min-width:0;
-    max-width:none;
-    padding:8px 10px;
-    font-size:12px;
-    min-height:38px;
-  }
+  .callout-actions,.actions{display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;align-items:stretch;gap:8px;width:100%}
+  .callout-actions .btn,.actions .btn{flex:1 1 0;width:0;min-width:0;max-width:none;padding:8px 10px;font-size:12px;min-height:38px}
 }
-@media (min-width: 769px){
-  .wrap > .toolbar:last-of-type{
-    margin-top: 22px;
-    padding-top: 6px;
-  }
-
-  .wrap > .toolbar:last-of-type .actions{
-    justify-content:flex-end;
-  }
+@media (min-width:769px){
+  .wrap > .toolbar:last-of-type{margin-top:22px;padding-top:6px}
+  .wrap > .toolbar:last-of-type .actions{justify-content:flex-end}
 }
-
 </style>
 
 <header class="header-itaoca">
-  <img
-    src="https://yata-apix-26d89c64-255e-44a8-a7e2-98a7a639f851.s3-object.locaweb.com.br/b057cb744b064181a08c9d4ce88202bf.jpg"
-    alt="Logo Itaoca"
-    class="logo-itaoca"
-  />
-
-  <div class="header-text">
-    <h1>Oportunidades de investimento</h1>
-  </div>
+  <img src="https://yata-apix-26d89c64-255e-44a8-a7e2-98a7a639f851.s3-object.locaweb.com.br/b057cb744b064181a08c9d4ce88202bf.jpg" alt="Logo Itaoca" class="logo-itaoca" />
+  <div class="header-text"><h1>Oportunidades de investimento</h1></div>
 </header>
 
-  <div class="wrap">
-    
-	<section class="toolbar callout">
+<div class="wrap">
+  <section class="toolbar callout">
     <div class="callout-copy">
       <span class="eyebrow">Seleção Itaoca</span>
       <h2>Pensando no tipo de investimento que você procura, a Itaoca selecionou estes imóveis com seu perfil.</h2>
     </div>
-	</section>
+  </section>
 
-    <div class="grid">
-      
-      <section class="card">
-        <div class="head"><div class="badge" id="badge1">Opção 1</div><div class="titleRow"><h2>Imóvel 1</h2><div class="rank" id="rank1">-</div></div><p class="sub" id="sub1">Preencha os dados principais.</p></div>
-        <div class="body">
-          <div class="form-grid">
-            <div class="field full"><label>Título</label><input id="titulo1" placeholder="Ex. Imóvel 1"></div>
-            <div class="field"><label>Aquisição (R$)</label><input id="aquisicao1" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Valor de mercado (R$)</label><input id="mercado1" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Plano Itaoca</label><select id="plano1"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
-            <div class="field"><label>Rateio do plano</label><select id="ratio1"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
-            <div class="field"><label>% do fee</label><input id="percRatio1" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
-            <div class="field"><label>Assessoria (%)</label><input id="percAss1" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
-            <div class="field"><label>Documentação (%)</label><input id="doc1" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
-            <div class="field"><label>Leiloeiro (%)</label><input id="lei1" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
-            <div class="field"><label>Dívidas (R$)</label><input id="div1" type="text" inputmode="decimal" placeholder="0,00"></div>
+  <div class="grid">
+    <section class="card">
+      <div class="head">
+        <div class="badge" id="badge1">Opção 1</div>
+        <div class="titleRow"><h2>Imóvel 1</h2><div class="rank" id="rank1">-</div></div>
+        <p class="sub" id="sub1">Preencha os dados principais.</p>
+      </div>
+      <div class="body">
+        <div class="form-grid">
+          <div class="field full"><label>Título</label><input id="titulo1" placeholder="Ex. Imóvel 1"></div>
+          <div class="field"><label>Aquisição (R$)</label><input id="aquisicao1" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Valor de mercado (R$)</label><input id="mercado1" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Plano Itaoca</label><select id="plano1"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
+          <div class="field"><label>Rateio do plano</label><select id="ratio1"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
+          <div class="field"><label>% do fee</label><input id="percRatio1" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
+          <div class="field"><label>Assessoria (%)</label><input id="percAss1" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
+          <div class="field"><label>Documentação (%)</label><input id="doc1" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
+          <div class="field"><label>Leiloeiro (%)</label><input id="lei1" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
+          <div class="field"><label>Dívidas (R$)</label><input id="div1" type="text" inputmode="decimal" placeholder="0,00"></div>
+        </div>
+
+        <div class="reforma-section">
+          <div class="reforma-title">Reforma</div>
+          <div class="reforma-toggle">
+            <label class="toggle-switch">
+              <input type="checkbox" id="reformaAtiva1" onchange="toggleReformaFields(1)">
+              <span class="toggle-slider"></span>
+            </label>
+            <label for="reformaAtiva1">Incluir custo de reforma</label>
           </div>
-          <div class="mini-grid">
-            <div class="mini gold"><div class="lab">Desconto Real</div><div class="val" id="desconto1">0,00%</div></div>
-            <div class="mini good"><div class="lab">Diferença estimada</div><div class="val" id="lucro1">R$ 0,00</div></div>
-          </div>
-          <div class="stats">
-            <div class="stat"><span>Custo do plano</span><strong id="cplano1">R$ 0,00</strong></div>
-            <div class="stat"><span>Assessoria</span><strong id="ass1">R$ 0,00</strong></div>
-            <div class="stat"><span>Desembolso</span><strong id="des1">R$ 0,00</strong></div>
-            <div class="stat"><span>Valor de mercado</span><strong id="vlq1">R$ 0,00</strong></div>
-            <div class="stat"><span>Custos fixos</span><strong id="fix1">R$ 0,00</strong></div>
+          <div class="reforma-fields" id="reformaFields1" style="display:none">
+            <div class="field"><label>Custo de reforma (R$)</label><input id="reforma1" type="text" inputmode="decimal" placeholder="0,00"></div>
+            <div class="field"><label>Valor de venda pós-reforma (R$)</label><input id="mercadoReforma1" type="text" inputmode="decimal" placeholder="0,00"></div>
           </div>
         </div>
-      </section>
-      <section class="card">
-        <div class="head"><div class="badge" id="badge2">Opção 2</div><div class="titleRow"><h2>Imóvel 2</h2><div class="rank" id="rank2">-</div></div><p class="sub" id="sub2">Preencha os dados principais.</p></div>
-        <div class="body">
-          <div class="form-grid">
-            <div class="field full"><label>Título</label><input id="titulo2" placeholder="Ex. Imóvel 2"></div>
-            <div class="field"><label>Aquisição (R$)</label><input id="aquisicao2" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Valor de mercado (R$)</label><input id="mercado2" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Plano Itaoca</label><select id="plano2"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
-            <div class="field"><label>Rateio do plano</label><select id="ratio2"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
-            <div class="field"><label>% do fee</label><input id="percRatio2" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
-            <div class="field"><label>Assessoria (%)</label><input id="percAss2" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
-            <div class="field"><label>Documentação (%)</label><input id="doc2" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
-            <div class="field"><label>Leiloeiro (%)</label><input id="lei2" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
-            <div class="field"><label>Dívidas (R$)</label><input id="div2" type="text" inputmode="decimal" placeholder="0,00"></div>
+
+        <div class="mini-grid">
+          <div class="mini gold"><div class="lab" id="labDesconto1">Desconto Real</div><div class="val" id="desconto1">0,00%</div></div>
+          <div class="mini good"><div class="lab" id="labLucro1">Diferença estimada</div><div class="val" id="lucro1">R$ 0,00</div></div>
+          <div class="mini reforma" id="miniReformaCusto1" style="display:none"><div class="lab">Custo reforma</div><div class="val" id="reformaValDisplay1">R$ 0,00</div></div>
+          <div class="mini good" id="miniDesembolsoTotal1" style="display:none"><div class="lab">Desembolso total</div><div class="val" id="desembolsoTotalDisplay1">R$ 0,00</div></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Custo do plano</span><strong id="cplano1">R$ 0,00</strong></div>
+          <div class="stat"><span>Assessoria</span><strong id="ass1">R$ 0,00</strong></div>
+          <div class="stat"><span>Desembolso</span><strong id="des1">R$ 0,00</strong></div>
+          <div class="stat" id="statReforma1" style="display:none"><span>Reforma</span><strong id="reformaStat1">R$ 0,00</strong></div>
+          <div class="stat"><span>Valor de mercado</span><strong id="vlq1">R$ 0,00</strong></div>
+          <div class="stat" id="statMercadoReforma1" style="display:none"><span>Valor venda pós-reforma</span><strong id="mercadoReformaStat1">R$ 0,00</strong></div>
+          <div class="stat"><span>Custos fixos</span><strong id="fix1">R$ 0,00</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="head">
+        <div class="badge" id="badge2">Opção 2</div>
+        <div class="titleRow"><h2>Imóvel 2</h2><div class="rank" id="rank2">-</div></div>
+        <p class="sub" id="sub2">Preencha os dados principais.</p>
+      </div>
+      <div class="body">
+        <div class="form-grid">
+          <div class="field full"><label>Título</label><input id="titulo2" placeholder="Ex. Imóvel 2"></div>
+          <div class="field"><label>Aquisição (R$)</label><input id="aquisicao2" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Valor de mercado (R$)</label><input id="mercado2" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Plano Itaoca</label><select id="plano2"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
+          <div class="field"><label>Rateio do plano</label><select id="ratio2"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
+          <div class="field"><label>% do fee</label><input id="percRatio2" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
+          <div class="field"><label>Assessoria (%)</label><input id="percAss2" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
+          <div class="field"><label>Documentação (%)</label><input id="doc2" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
+          <div class="field"><label>Leiloeiro (%)</label><input id="lei2" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
+          <div class="field"><label>Dívidas (R$)</label><input id="div2" type="text" inputmode="decimal" placeholder="0,00"></div>
+        </div>
+
+        <div class="reforma-section">
+          <div class="reforma-title">Reforma</div>
+          <div class="reforma-toggle">
+            <label class="toggle-switch">
+              <input type="checkbox" id="reformaAtiva2" onchange="toggleReformaFields(2)">
+              <span class="toggle-slider"></span>
+            </label>
+            <label for="reformaAtiva2">Incluir custo de reforma</label>
           </div>
-          <div class="mini-grid">
-            <div class="mini gold"><div class="lab">Desconto Real</div><div class="val" id="desconto2">0,00%</div></div>
-            <div class="mini good"><div class="lab">Diferença estimada</div><div class="val" id="lucro2">R$ 0,00</div></div>
-          </div>
-          <div class="stats">
-            <div class="stat"><span>Custo do plano</span><strong id="cplano2">R$ 0,00</strong></div>
-            <div class="stat"><span>Assessoria</span><strong id="ass2">R$ 0,00</strong></div>
-            <div class="stat"><span>Desembolso</span><strong id="des2">R$ 0,00</strong></div>
-            <div class="stat"><span>Valor de mercado</span><strong id="vlq2">R$ 0,00</strong></div>
-            <div class="stat"><span>Custos fixos</span><strong id="fix2">R$ 0,00</strong></div>
+          <div class="reforma-fields" id="reformaFields2" style="display:none">
+            <div class="field"><label>Custo de reforma (R$)</label><input id="reforma2" type="text" inputmode="decimal" placeholder="0,00"></div>
+            <div class="field"><label>Valor de venda pós-reforma (R$)</label><input id="mercadoReforma2" type="text" inputmode="decimal" placeholder="0,00"></div>
           </div>
         </div>
-      </section>
-      <section class="card">
-        <div class="head"><div class="badge" id="badge3">Opção 3</div><div class="titleRow"><h2>Imóvel 3</h2><div class="rank" id="rank3">-</div></div><p class="sub" id="sub3">Preencha os dados principais.</p></div>
-        <div class="body">
-          <div class="form-grid">
-            <div class="field full"><label>Título</label><input id="titulo3" placeholder="Ex. Imóvel 3"></div>
-            <div class="field"><label>Aquisição (R$)</label><input id="aquisicao3" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Valor de mercado (R$)</label><input id="mercado3" type="text" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label>Plano Itaoca</label><select id="plano3"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
-            <div class="field"><label>Rateio do plano</label><select id="ratio3"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
-            <div class="field"><label>% do fee</label><input id="percRatio3" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
-            <div class="field"><label>Assessoria (%)</label><input id="percAss3" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
-            <div class="field"><label>Documentação (%)</label><input id="doc3" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
-            <div class="field"><label>Leiloeiro (%)</label><input id="lei3" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
-            <div class="field"><label>Dívidas (R$)</label><input id="div3" type="text" inputmode="decimal" placeholder="0,00"></div>
+
+        <div class="mini-grid">
+          <div class="mini gold"><div class="lab" id="labDesconto2">Desconto Real</div><div class="val" id="desconto2">0,00%</div></div>
+          <div class="mini good"><div class="lab" id="labLucro2">Diferença estimada</div><div class="val" id="lucro2">R$ 0,00</div></div>
+          <div class="mini reforma" id="miniReformaCusto2" style="display:none"><div class="lab">Custo reforma</div><div class="val" id="reformaValDisplay2">R$ 0,00</div></div>
+          <div class="mini good" id="miniDesembolsoTotal2" style="display:none"><div class="lab">Desembolso total</div><div class="val" id="desembolsoTotalDisplay2">R$ 0,00</div></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Custo do plano</span><strong id="cplano2">R$ 0,00</strong></div>
+          <div class="stat"><span>Assessoria</span><strong id="ass2">R$ 0,00</strong></div>
+          <div class="stat"><span>Desembolso</span><strong id="des2">R$ 0,00</strong></div>
+          <div class="stat" id="statReforma2" style="display:none"><span>Reforma</span><strong id="reformaStat2">R$ 0,00</strong></div>
+          <div class="stat"><span>Valor de mercado</span><strong id="vlq2">R$ 0,00</strong></div>
+          <div class="stat" id="statMercadoReforma2" style="display:none"><span>Valor venda pós-reforma</span><strong id="mercadoReformaStat2">R$ 0,00</strong></div>
+          <div class="stat"><span>Custos fixos</span><strong id="fix2">R$ 0,00</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="head">
+        <div class="badge" id="badge3">Opção 3</div>
+        <div class="titleRow"><h2>Imóvel 3</h2><div class="rank" id="rank3">-</div></div>
+        <p class="sub" id="sub3">Preencha os dados principais.</p>
+      </div>
+      <div class="body">
+        <div class="form-grid">
+          <div class="field full"><label>Título</label><input id="titulo3" placeholder="Ex. Imóvel 3"></div>
+          <div class="field"><label>Aquisição (R$)</label><input id="aquisicao3" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Valor de mercado (R$)</label><input id="mercado3" type="text" inputmode="decimal" placeholder="0,00"></div>
+          <div class="field"><label>Plano Itaoca</label><select id="plano3"><option value="0">Selecione...</option><option value="2000">Classic - R$ 2.000,00</option><option value="5000">Gold - R$ 5.000,00</option><option value="7000">Exclusive - R$ 7.000,00</option><option value="10000">Prime - R$ 10.000,00</option><option value="25000">Private - R$ 25.000,00</option></select></div>
+          <div class="field"><label>Rateio do plano</label><select id="ratio3"><option value="inteiro">Padrão (100%)</option><option value="dividido">Dividido</option><option value="quitado">Quitado</option><option value="percentual">Percentual</option></select></div>
+          <div class="field"><label>% do fee</label><input id="percRatio3" type="number" min="0" max="100" step="0.01" placeholder="Ex. 50"></div>
+          <div class="field"><label>Assessoria (%)</label><input id="percAss3" type="number" min="0" max="100" step="0.01" placeholder="12"></div>
+          <div class="field"><label>Documentação (%)</label><input id="doc3" type="number" min="0" max="100" step="0.01" placeholder="Ex. 6,5"></div>
+          <div class="field"><label>Leiloeiro (%)</label><input id="lei3" type="number" min="0" max="100" step="0.01" placeholder="0"></div>
+          <div class="field"><label>Dívidas (R$)</label><input id="div3" type="text" inputmode="decimal" placeholder="0,00"></div>
+        </div>
+
+        <div class="reforma-section">
+          <div class="reforma-title">Reforma</div>
+          <div class="reforma-toggle">
+            <label class="toggle-switch">
+              <input type="checkbox" id="reformaAtiva3" onchange="toggleReformaFields(3)">
+              <span class="toggle-slider"></span>
+            </label>
+            <label for="reformaAtiva3">Incluir custo de reforma</label>
           </div>
-          <div class="mini-grid">
-            <div class="mini gold"><div class="lab">Desconto Real</div><div class="val" id="desconto3">0,00%</div></div>
-            <div class="mini good"><div class="lab">Diferença estimada</div><div class="val" id="lucro3">R$ 0,00</div></div>
-          </div>
-          <div class="stats">
-            <div class="stat"><span>Custo do plano</span><strong id="cplano3">R$ 0,00</strong></div>
-            <div class="stat"><span>Assessoria</span><strong id="ass3">R$ 0,00</strong></div>
-            <div class="stat"><span>Desembolso</span><strong id="des3">R$ 0,00</strong></div>
-            <div class="stat"><span>Valor de mercado</span><strong id="vlq3">R$ 0,00</strong></div>
-            <div class="stat"><span>Custos fixos</span><strong id="fix3">R$ 0,00</strong></div>
+          <div class="reforma-fields" id="reformaFields3" style="display:none">
+            <div class="field"><label>Custo de reforma (R$)</label><input id="reforma3" type="text" inputmode="decimal" placeholder="0,00"></div>
+            <div class="field"><label>Valor de venda pós-reforma (R$)</label><input id="mercadoReforma3" type="text" inputmode="decimal" placeholder="0,00"></div>
           </div>
         </div>
-      </section>
-    <section class="card summary" style="margin-top:18px; grid-column:1 / -1; width:100%;">
-      <div class="head"><div class="badge">Resumo comercial</div><div class="titleRow"><h2>Comparativo das 3 opções</h2></div><p class="sub">Mostre o desconto de compra, o impacto da assessoria e a atratividade final.</p></div>
+
+        <div class="mini-grid">
+          <div class="mini gold"><div class="lab" id="labDesconto3">Desconto Real</div><div class="val" id="desconto3">0,00%</div></div>
+          <div class="mini good"><div class="lab" id="labLucro3">Diferença estimada</div><div class="val" id="lucro3">R$ 0,00</div></div>
+          <div class="mini reforma" id="miniReformaCusto3" style="display:none"><div class="lab">Custo reforma</div><div class="val" id="reformaValDisplay3">R$ 0,00</div></div>
+          <div class="mini good" id="miniDesembolsoTotal3" style="display:none"><div class="lab">Desembolso total</div><div class="val" id="desembolsoTotalDisplay3">R$ 0,00</div></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><span>Custo do plano</span><strong id="cplano3">R$ 0,00</strong></div>
+          <div class="stat"><span>Assessoria</span><strong id="ass3">R$ 0,00</strong></div>
+          <div class="stat"><span>Desembolso</span><strong id="des3">R$ 0,00</strong></div>
+          <div class="stat" id="statReforma3" style="display:none"><span>Reforma</span><strong id="reformaStat3">R$ 0,00</strong></div>
+          <div class="stat"><span>Valor de mercado</span><strong id="vlq3">R$ 0,00</strong></div>
+          <div class="stat" id="statMercadoReforma3" style="display:none"><span>Valor venda pós-reforma</span><strong id="mercadoReformaStat3">R$ 0,00</strong></div>
+          <div class="stat"><span>Custos fixos</span><strong id="fix3">R$ 0,00</strong></div>
+        </div>
+      </div>
+    </section>
+    <section class="card summary" style="margin-top:18px;grid-column:1/-1;width:100%;">
+      <div class="head"><div class="badge">Resumo comercial</div><div class="titleRow"><h2>Comparativo das 3 opções</h2></div><p class="sub">Desconto, desembolso total e atratividade de cada oportunidade.</p></div>
       <div class="body">
         <div class="hero" id="heroResumo">
           <div class="status" id="heroStatus">Aguardando dados</div>
           <div class="value" id="heroValor">R$ 0,00</div>
           <div class="desc" id="heroDesc">Preencha os três imóveis para destacar a melhor oportunidade.</div>
+          <div class="hero-cols" id="heroCols" style="display:none">
+            <div class="hero-box"><div class="lab">Melhor desconto líquido</div><div class="num" id="heroDesconto">—</div></div>
+            <div class="hero-box"><div class="lab">Desembolso total</div><div class="num" id="heroDesembolso">—</div></div>
+            <div class="hero-box"><div class="lab">Diferença estimada</div><div class="num" id="heroDif">—</div></div>
+          </div>
         </div>
         <div class="compare" style="width:100%;">
           <table style="width:100%;">
-            <thead><tr><th>Imóvel</th><th>Aquisição</th><th>Mercado</th><th>Desconto</th><th>Desembolso</th><th>Diferença</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Imóvel</th>
+                <th>Aquisição</th>
+                <th>Mercado / Venda</th>
+                <th>Desconto líquido</th>
+                <th>Desembolso total</th>
+                <th>Diferença estimada</th>
+              </tr>
+            </thead>
             <tbody id="tbodyResumo"></tbody>
           </table>
         </div>
+        <p class="note" id="notaReforma" style="display:none">* Imóveis com reforma: desembolso total inclui custo de reforma; desconto e diferença calculados com base no valor de venda pós-reforma.</p>
       </div>
     </section>
- </div>
-	<div class="toolbar">
-  <div class="muted small">&nbsp;</div>
-  <div class="actions">
-    <button class="btn btn-secondary" onclick="window.print()">Salvar PDF</button>
-    <button class="btn btn-secondary" onclick="salvarComoImagem()">Salvar imagem</button>
-    <button class="btn btn-secondary" onclick="limparTudo()">Limpar</button>
+  </div>
+
+  <div class="toolbar">
+    <div class="muted small">&nbsp;</div>
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="window.print()">Salvar PDF</button>
+      <button class="btn btn-secondary" onclick="salvarComoImagem()">Salvar imagem</button>
+      <button class="btn btn-secondary" onclick="limparTudo()">Limpar</button>
+    </div>
   </div>
 </div>
-</div>
+
 <script>
 const PLANOS={"2000":{nome:"Classic",fee:2000,percAssessoria:12,maxArrematacoes:1},"5000":{nome:"Gold",fee:5000,percAssessoria:11,maxArrematacoes:2},"7000":{nome:"Exclusive",fee:7000,percAssessoria:10,maxArrematacoes:3},"10000":{nome:"Prime",fee:10000,percAssessoria:9,maxArrematacoes:4},"25000":{nome:"Private",fee:25000,percAssessoria:8,maxArrematacoes:8}};
 const ids=[1,2,3];
@@ -272,12 +332,16 @@ const el=id=>document.getElementById(id);
 const v=(id,f='')=>{const e=el(id);return e?e.value:f};
 const setv=(id,val)=>{const e=el(id);if(e)e.value=val};
 const txt=(id,val)=>{const e=el(id);if(e)e.textContent=val};
+const show=(id,vis)=>{const e=el(id);if(e)e.style.display=vis?'':'none'};
+
 function parseCurrency(raw){if(raw===undefined||raw===null)return 0;if(typeof raw==='number')return raw;raw=String(raw).trim();if(raw==='')return 0;raw=raw.replace(/\s/g,'').replace(/^R\$/i,'');if(raw.includes(',')&&raw.includes('.'))raw=raw.replace(/\./g,'').replace(',','.');else raw=raw.replace(',','.');const n=parseFloat(raw);return isNaN(n)?0:n}
 function fmtBRL(vv){return Number(vv||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
 function fmtPct(vv){return Number(vv||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%'}
 function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
 function fmtInput(vv){return Number(vv||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+
 function attachCurrency(fields){fields.forEach(id=>{const e=el(id);if(!e)return;e.addEventListener('focus',function(){const n=parseCurrency(this.value);this.value=n?n.toFixed(2).replace('.',','):''});e.addEventListener('blur',function(){const n=parseCurrency(this.value);this.value=n?fmtInput(n):'';calcularAll()})})}
+
 function getPlanoCfg(i){return PLANOS[v('plano'+i,'0')]||null}
 function getRateio(i){return v('ratio'+i,'inteiro')}
 function getPercRateio(i){return clamp(parseFloat(v('percRatio'+i))||0,0,100)}
@@ -285,53 +349,162 @@ function getCustoPlano(i){const cfg=getPlanoCfg(i);if(!cfg)return 0;const modo=g
 function setRateioState(i){const cfg=getPlanoCfg(i);const ratio=el('ratio'+i);const perc=el('percRatio'+i);if(ratio)ratio.disabled=!cfg;if(perc){const on=cfg&&getRateio(i)==='percentual';perc.disabled=!on}if(!cfg){if(ratio)ratio.value='inteiro';if(perc)perc.value=''}}
 function applyPlano(i){const cfg=getPlanoCfg(i);if(!cfg){setv('percAss'+i,'');setRateioState(i);calcularAll();return}setv('percAss'+i,cfg.percAssessoria.toFixed(2));setRateioState(i);calcularAll()}
 function normalizePercRatio(i){const e=el('percRatio'+i);if(!e)return;const raw=String(e.value).trim();if(raw==='')return;let p=parseFloat(raw);if(isNaN(p))p=0;p=clamp(p,0,100);e.value=String(p).replace(/(\.\d*?[1-9])0+$/,'$1').replace(/\.0+$/,'');calcularAll()}
-function calcularItem(i){const titulo=v('titulo'+i,'Imóvel '+i);const aquisicao=parseCurrency(v('aquisicao'+i));const mercado=parseCurrency(v('mercado'+i));const custoPlano=getCustoPlano(i);const percAss=(parseFloat(v('percAss'+i))||0)/100;const valorAss=aquisicao*percAss;const docPerc=clamp(parseFloat(v('doc'+i))||0,0,100)/100;const leiPerc=clamp(parseFloat(v('lei'+i))||0,0,100)/100;const div=parseCurrency(v('div'+i));const doc=aquisicao*docPerc;const lei=aquisicao*leiPerc;const custosFixos=doc+lei+div;const desembolso=aquisicao+custosFixos+custoPlano+valorAss;const descontoBruto=mercado>0?(mercado-aquisicao)/mercado*100:0;const descontoLiquido=mercado>0?(mercado-desembolso)/mercado*100:0;const lucro=mercado-desembolso;return {i,titulo,aquisicao,mercado,custoPlano,valorAss,custosFixos,desembolso,descontoBruto,descontoLiquido,lucro}}
-function calcularAll(){const itens=ids.map(calcularItem);const valid=itens.filter(x=>x.aquisicao>0||x.mercado>0);const best=valid.slice().sort((a,b)=>b.descontoLiquido-a.descontoLiquido)[0]||null;txt('heroStatus',valid.length?('Maior desconto líquido: '+(best?.titulo||'—')):'Aguardando dados');txt('heroValor',best?fmtBRL(best.lucro):fmtBRL(0));txt('heroDesc',best?('O destaque comercial está em '+fmtPct(best.descontoBruto)+' de desconto bruto e '+fmtPct(best.descontoLiquido)+' de desconto líquido.'): 'Preencha os três imóveis para destacar a melhor oportunidade.');txt('heroDesconto',best?fmtPct(best.descontoLiquido):fmtPct(0));const tbody=el('tbodyResumo');if(tbody)tbody.innerHTML=itens.map(x=>`<tr class="${best&&x.i===best.i?'best':''}"><td><strong>${x.titulo||'Imóvel '+x.i}</strong><div class="muted small">${best&&x.i===best.i?'Maior desconto':'Opção '+x.i}</div></td><td>${fmtBRL(x.aquisicao)}</td><td>${fmtBRL(x.mercado)}</td><td>${fmtPct(x.descontoLiquido)}</td><td>${fmtBRL(x.desembolso)}</td><td>${fmtBRL(x.lucro)}</td></tr>`).join('');ids.forEach(i=>{const x=itens.find(z=>z.i===i);txt('cplano'+i,fmtBRL(x.custoPlano));txt('ass'+i,fmtBRL(x.valorAss));txt('des'+i,fmtBRL(x.desembolso));txt('fix'+i,fmtBRL(x.custosFixos));txt('vlq'+i,fmtBRL(x.mercado));txt('lucro'+i,fmtBRL(x.lucro));txt('desconto'+i,fmtPct(x.descontoLiquido));txt('sub'+i,x.aquisicao>0&&x.mercado>0?`Compra com ${fmtPct(x.descontoBruto)} de desconto bruto vs. mercado.`:'Preencha os dados principais.');const rank=el('rank'+i);const badge=el('badge'+i);if(rank)rank.textContent=best&&x.i===best.i?'Maior desconto':'Opção '+i;if(badge)badge.textContent=x.lucro>=0?'Oportunidade':'Risco';badge?.classList.toggle('warn',x.lucro<0)})}
-function limparTudo(){['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>ids.forEach(i=>{const e=el(p+i);if(!e)return;e.value=(e.tagName==='SELECT'&&p==='ratio')?'inteiro':(e.tagName==='SELECT'&&p==='plano')?'0':''}));ids.forEach(i=>setRateioState(i));calcularAll()}
-window.addEventListener('beforeprint',calcularAll);
-async function salvarComoImagem(){
-  const body=document.body;
-  const root=document.documentElement;
-  const ox=body.style.overflowX;
-  const oy=body.style.overflowY;
-  const scrollX=window.scrollX||0;
-  const scrollY=window.scrollY||0;
-  body.style.overflowX='visible';
-  body.style.overflowY='visible';
-  try{
-    if(document.fonts && document.fonts.ready) await document.fonts.ready;
-    await new Promise(r=>setTimeout(r,300));
-    window.scrollTo(0,0);
-    const canvas=await html2canvas(body,{
-      scale:2,
-      useCORS:true,
-      backgroundColor:'#f6f3ec',
-      windowWidth:Math.max(root.scrollWidth,root.clientWidth),
-      windowHeight:root.scrollHeight,
-      scrollX:0,
-      scrollY:0,
-      width:root.scrollWidth,
-      height:root.scrollHeight,
-      removeContainer:true,
-      onclone:doc=>{
-        const hidden=doc.querySelectorAll('header,.toolbar');
-        hidden.forEach(el=>{
-          if(el && el.style) el.style.overflow='visible';
-        });
-      }
-    });
-    const link=document.createElement('a');
-    link.download='itaoca-3-imoveis.png';
-    link.href=canvas.toDataURL('image/png');
-    link.click();
-  }finally{
-    body.style.overflowX=ox;
-    body.style.overflowY=oy;
-    window.scrollTo(scrollX,scrollY);
-  }
+
+function isReformaAtiva(i){return el('reformaAtiva'+i)?.checked||false}
+
+function toggleReformaFields(i){
+  const ativa=isReformaAtiva(i);
+  const fields=el('reformaFields'+i);
+  if(fields)fields.style.display=ativa?'grid':'none';
+  show('miniReformaCusto'+i,ativa);
+  show('miniDesembolsoTotal'+i,ativa);
+  show('statReforma'+i,ativa);
+  show('statMercadoReforma'+i,ativa);
+  calcularAll();
 }
 
-document.addEventListener('DOMContentLoaded',()=>{attachCurrency(['aquisicao1','mercado1','div1','aquisicao2','mercado2','div2','aquisicao3','mercado3','div3']);ids.forEach(i=>{['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div'].forEach(p=>{const e=el(p+i);if(!e)return;e.addEventListener('input',()=>calcularAll());e.addEventListener('change',()=>{if(p==='plano')applyPlano(i);else if(p==='ratio'){setRateioState(i);calcularAll()}else calcularAll()})});const pr=el('percRatio'+i);if(pr){pr.addEventListener('input',()=>calcularAll());pr.addEventListener('blur',()=>normalizePercRatio(i))}});ids.forEach(i=>applyPlano(i));calcularAll()});
+function calcularItem(i){
+  const titulo=v('titulo'+i,'Imóvel '+i);
+  const aquisicao=parseCurrency(v('aquisicao'+i));
+  const mercado=parseCurrency(v('mercado'+i));
+  const custoPlano=getCustoPlano(i);
+  const percAss=(parseFloat(v('percAss'+i))||0)/100;
+  const valorAss=aquisicao*percAss;
+  const docPerc=clamp(parseFloat(v('doc'+i))||0,0,100)/100;
+  const leiPerc=clamp(parseFloat(v('lei'+i))||0,0,100)/100;
+  const div=parseCurrency(v('div'+i));
+  const doc=aquisicao*docPerc;
+  const lei=aquisicao*leiPerc;
+  const custosFixos=doc+lei+div;
+  const desembolsoBase=aquisicao+custosFixos+custoPlano+valorAss;
+
+  const reforma=isReformaAtiva(i);
+  const custoReforma=reforma?parseCurrency(v('reforma'+i)):0;
+  const mercadoReforma=reforma?parseCurrency(v('mercadoReforma'+i)):0;
+
+  // Com reforma: desembolso total inclui reforma, mercado efetivo é o pós-reforma
+  const desembolsoTotal=desembolsoBase+(reforma?custoReforma:0);
+  const mercadoEfetivo=reforma&&mercadoReforma>0?mercadoReforma:mercado;
+
+  const descontoBruto=mercadoEfetivo>0?(mercadoEfetivo-aquisicao)/mercadoEfetivo*100:0;
+  const descontoLiquido=mercadoEfetivo>0?(mercadoEfetivo-desembolsoTotal)/mercadoEfetivo*100:0;
+  const lucro=mercadoEfetivo-desembolsoTotal;
+
+  return{i,titulo,aquisicao,mercado,mercadoEfetivo,custoPlano,valorAss,custosFixos,desembolsoBase,custoReforma,desembolsoTotal,descontoBruto,descontoLiquido,lucro,reforma,mercadoReforma}
+}
+
+function calcularAll(){
+  const itens=ids.map(calcularItem);
+  const valid=itens.filter(x=>x.aquisicao>0||x.mercado>0);
+  const best=valid.slice().sort((a,b)=>b.descontoLiquido-a.descontoLiquido)[0]||null;
+  const temReforma=itens.some(x=>x.reforma);
+
+  // Hero
+  txt('heroStatus',valid.length?('Melhor oportunidade: '+(best?.titulo||'—')):'Aguardando dados');
+  txt('heroValor',best?fmtBRL(best.lucro):fmtBRL(0));
+  txt('heroDesc',best?('Destaque com '+fmtPct(best.descontoBruto)+' de desconto bruto e '+fmtPct(best.descontoLiquido)+' de desconto líquido'+(best.reforma?' (pós-reforma)':'')+'.'):'Preencha os três imóveis para destacar a melhor oportunidade.');
+  show('heroCols',valid.length>0);
+  if(best){
+    txt('heroDesconto',fmtPct(best.descontoLiquido));
+    txt('heroDesembolso',fmtBRL(best.desembolsoTotal));
+    txt('heroDif',fmtBRL(best.lucro));
+  }
+
+  // Tabela
+  const tbody=el('tbodyResumo');
+  if(tbody)tbody.innerHTML=itens.map(x=>{
+    const isBest=best&&x.i===best.i;
+    const tagR=x.reforma?'<span class="tag-reforma">+Reforma</span>':'';
+    return `<tr class="${isBest?'best':''}">
+      <td><strong>${x.titulo||'Imóvel '+x.i}</strong>${tagR}<div class="muted small">${isBest?'Melhor oportunidade':'Opção '+x.i}</div></td>
+      <td>${fmtBRL(x.aquisicao)}</td>
+      <td>${x.reforma&&x.mercadoReforma>0?fmtBRL(x.mercadoReforma)+'<div class="muted small">pós-reforma</div>':fmtBRL(x.mercado)}</td>
+      <td>${fmtPct(x.descontoLiquido)}${x.reforma?'<div class="muted small">pós-reforma</div>':''}</td>
+      <td>${fmtBRL(x.desembolsoTotal)}${x.reforma?'<div class="muted small">inclui reforma</div>':''}</td>
+      <td style="color:${x.lucro>=0?'var(--good)':'var(--bad)'};font-weight:700">${fmtBRL(x.lucro)}</td>
+    </tr>`;
+  }).join('');
+
+  show('notaReforma',temReforma);
+
+  // Cards individuais
+  ids.forEach(i=>{
+    const x=itens.find(z=>z.i===i);
+    const ativa=x.reforma;
+
+    // Labels dinâmicos
+    txt('labDesconto'+i,ativa?'Desconto pós-reforma':'Desconto Real');
+    txt('labLucro'+i,ativa?'Diferença pós-reforma':'Diferença estimada');
+
+    txt('cplano'+i,fmtBRL(x.custoPlano));
+    txt('ass'+i,fmtBRL(x.valorAss));
+    txt('des'+i,fmtBRL(x.desembolsoBase));
+    txt('vlq'+i,fmtBRL(x.mercado));
+    txt('fix'+i,fmtBRL(x.custosFixos));
+    txt('lucro'+i,fmtBRL(x.lucro));
+    txt('desconto'+i,fmtPct(x.descontoLiquido));
+    txt('reformaStat'+i,fmtBRL(x.custoReforma));
+    txt('reformaValDisplay'+i,fmtBRL(x.custoReforma));
+    txt('desembolsoTotalDisplay'+i,fmtBRL(x.desembolsoTotal));
+    txt('mercadoReformaStat'+i,fmtBRL(x.mercadoReforma));
+
+    txt('sub'+i,x.aquisicao>0&&x.mercado>0?
+      `Compra com ${fmtPct(x.descontoBruto)} de desconto bruto vs. ${ativa&&x.mercadoReforma>0?'venda pós-reforma':'mercado'}.`:
+      'Preencha os dados principais.');
+
+    const rank=el('rank'+i);
+    const badge=el('badge'+i);
+    if(rank)rank.textContent=best&&x.i===best.i?'Melhor oportunidade':'Opção '+i;
+    if(badge)badge.textContent=x.lucro>=0?'Oportunidade':'Risco';
+    badge?.classList.toggle('warn',x.lucro<0);
+  });
+}
+
+function limparTudo(){
+  ['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div','reforma','mercadoReforma'].forEach(p=>ids.forEach(i=>{
+    const e=el(p+i);if(!e)return;
+    e.value=(e.tagName==='SELECT'&&p==='ratio')?'inteiro':(e.tagName==='SELECT'&&p==='plano')?'0':'';
+  }));
+  ids.forEach(i=>{
+    const cb=el('reformaAtiva'+i);
+    if(cb)cb.checked=false;
+    toggleReformaFields(i);
+    setRateioState(i);
+  });
+  calcularAll();
+}
+
+window.addEventListener('beforeprint',calcularAll);
+
+async function salvarComoImagem(){
+  const body=document.body;const root=document.documentElement;
+  const ox=body.style.overflowX;const oy=body.style.overflowY;
+  const scrollX=window.scrollX||0;const scrollY=window.scrollY||0;
+  body.style.overflowX='visible';body.style.overflowY='visible';
+  try{
+    if(document.fonts&&document.fonts.ready)await document.fonts.ready;
+    await new Promise(r=>setTimeout(r,300));
+    window.scrollTo(0,0);
+    const canvas=await html2canvas(body,{scale:2,useCORS:true,backgroundColor:'#f6f3ec',windowWidth:Math.max(root.scrollWidth,root.clientWidth),windowHeight:root.scrollHeight,scrollX:0,scrollY:0,width:root.scrollWidth,height:root.scrollHeight,removeContainer:true,onclone:doc=>{doc.querySelectorAll('header,.toolbar').forEach(el=>{if(el&&el.style)el.style.overflow='visible'})}});
+    const link=document.createElement('a');link.download='itaoca-3-imoveis.png';link.href=canvas.toDataURL('image/png');link.click();
+  }finally{body.style.overflowX=ox;body.style.overflowY=oy;window.scrollTo(scrollX,scrollY)}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  const currencyFields=['aquisicao1','mercado1','div1','reforma1','mercadoReforma1','aquisicao2','mercado2','div2','reforma2','mercadoReforma2','aquisicao3','mercado3','div3','reforma3','mercadoReforma3'];
+  attachCurrency(currencyFields);
+  ids.forEach(i=>{
+    ['titulo','aquisicao','mercado','plano','ratio','percRatio','percAss','doc','lei','div','reforma','mercadoReforma'].forEach(p=>{
+      const e=el(p+i);if(!e)return;
+      e.addEventListener('input',()=>calcularAll());
+      e.addEventListener('change',()=>{if(p==='plano')applyPlano(i);else if(p==='ratio'){setRateioState(i);calcularAll()}else calcularAll()});
+    });
+    const pr=el('percRatio'+i);
+    if(pr){pr.addEventListener('input',()=>calcularAll());pr.addEventListener('blur',()=>normalizePercRatio(i))}
+  });
+  ids.forEach(i=>applyPlano(i));
+  calcularAll();
+});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </body>
