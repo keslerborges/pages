@@ -41,6 +41,12 @@
   .nav a.active{background:var(--wine);color:#fff}
   .nav .cta{background:var(--magenta);color:#fff;margin-left:6px}
   .nav .cta:hover{background:var(--wine);color:#fff}
+  .bar-top{display:flex;align-items:center;gap:9px}
+  .menu-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:44px;height:40px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;padding:0}
+  .menu-toggle span{display:block;width:20px;height:2px;background:var(--wine);margin:0 auto;border-radius:2px;transition:.22s}
+  .menu-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .menu-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+  .menu-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
   .wrap{max-width:1200px;margin:0 auto;padding:0 22px}
   .page{display:none;animation:rise .5s cubic-bezier(.2,.7,.2,1)}
@@ -172,10 +178,18 @@
     .logos{grid-template-columns:repeat(3,1fr)}
     .case{grid-template-columns:1fr}.numgrid{grid-template-columns:1fr 1fr}
   }
+  @media (max-width:760px){
+    .menu-toggle{display:flex}
+    .topbar .inner{flex-direction:column;align-items:stretch;gap:0}
+    .bar-top{width:100%;justify-content:space-between}
+    .nav{display:none;flex-direction:column;flex-wrap:nowrap;width:100%;gap:2px;padding-top:12px}
+    .nav.open{display:flex}
+    .nav a{width:100%;padding:12px 14px;border-radius:12px;font-size:16px}
+    .nav .cta{margin-left:0;margin-top:4px;text-align:center}
+  }
   @media (max-width:620px){
     .g4,.g3,.g2,.frow{grid-template-columns:1fr}
-    .topbar .inner{flex-direction:column;align-items:flex-start;gap:10px}
-    .nav{width:100%}.offer{flex-direction:column;align-items:stretch}.offer .thumb{width:100%}
+    .offer{flex-direction:column;align-items:stretch}.offer .thumb{width:100%}
     .numgrid{grid-template-columns:1fr 1fr}
   }
 </style>
@@ -183,7 +197,10 @@
 <body>
   <div class="topbar">
     <div class="inner">
-      <div class="brand"><b>Ativações em Shopping</b><small>rede Gazit</small></div>
+      <div class="bar-top">
+        <div class="brand"><b>Ativações em Shopping</b><small>rede Gazit</small></div>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
+      </div>
       <nav class="nav" id="nav">
         <a data-go="home" class="active">Início</a>
         <a data-go="servicos">Serviços</a>
@@ -465,14 +482,27 @@
   // page switching
   const pages = document.querySelectorAll('.page');
   const links = document.querySelectorAll('#nav a');
+  const navEl = document.getElementById('nav');
+  const menuToggle = document.getElementById('menuToggle');
+  function closeMenu(){
+    navEl.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded','false');
+    menuToggle.setAttribute('aria-label','Abrir menu');
+  }
   function go(id){
     pages.forEach(p=>p.classList.toggle('active',p.id===id));
     links.forEach(a=>a.classList.toggle('active',a.dataset.go===id));
+    closeMenu();
     window.scrollTo({top:0,behavior:'smooth'});
   }
   document.addEventListener('click',e=>{
     const t=e.target.closest('[data-go]');
     if(t){e.preventDefault();go(t.dataset.go);}
+  });
+  menuToggle.addEventListener('click',()=>{
+    const open=navEl.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded',open?'true':'false');
+    menuToggle.setAttribute('aria-label',open?'Fechar menu':'Abrir menu');
   });
 
   // form steps
